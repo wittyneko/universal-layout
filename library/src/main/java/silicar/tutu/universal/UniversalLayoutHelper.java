@@ -18,12 +18,15 @@ package silicar.tutu.universal;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.content.res.XmlResourceParser;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v4.view.MarginLayoutParamsCompat;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
+import android.util.Xml;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -223,13 +226,13 @@ public class UniversalLayoutHelper
 
     public void fillTextSize(int widthHint, int heightHint, View view, UniversalLayoutInfo info)
     {
-        //textsize percent support
+        //textsize value support
 
         UniversalLayoutInfo.UniversalVal textSizeUniversal = info.textSizeUniversal;
         if (textSizeUniversal == null) return;
 
-        float base = getBaseByModeAndVal(widthHint, heightHint, info, textSizeUniversal.basemode);
-        float textSize = (int) (base * textSizeUniversal.percent);
+        float base = UniversalLayoutInfo.getUniversalBase(widthHint, heightHint, info, textSizeUniversal);
+        float textSize = (int) (base * textSizeUniversal.value);
 
         //Button 和 EditText 是TextView的子类
         if (view instanceof TextView)
@@ -241,31 +244,31 @@ public class UniversalLayoutHelper
     public void fillPadding(int widthHint, int heightHint, View view, UniversalLayoutInfo info)
     {
         int left = view.getPaddingLeft(), right = view.getPaddingRight(), top = view.getPaddingTop(), bottom = view.getPaddingBottom();
-        UniversalLayoutInfo.UniversalVal percentVal = info.paddingLeftUniversal;
-        if (percentVal != null)
+        UniversalLayoutInfo.UniversalVal universalVal = info.paddingLeftUniversal;
+        if (universalVal != null)
         {
-            float base = getBaseByModeAndVal(widthHint, heightHint, info, percentVal.basemode);
-            left = (int) (base * percentVal.percent);
+            float base = UniversalLayoutInfo.getUniversalBase(widthHint, heightHint, info, universalVal);
+            left = (int) (base * universalVal.value);
         }
-        percentVal = info.paddingRightUniversal;
-        if (percentVal != null)
+        universalVal = info.paddingRightUniversal;
+        if (universalVal != null)
         {
-            float base = getBaseByModeAndVal(widthHint, heightHint, info, percentVal.basemode);
-            right = (int) (base * percentVal.percent);
-        }
-
-        percentVal = info.paddingTopUniversal;
-        if (percentVal != null)
-        {
-            float base = getBaseByModeAndVal(widthHint, heightHint, info, percentVal.basemode);
-            top = (int) (base * percentVal.percent);
+            float base = UniversalLayoutInfo.getUniversalBase(widthHint, heightHint, info, universalVal);
+            right = (int) (base * universalVal.value);
         }
 
-        percentVal = info.paddingBottomUniversal;
-        if (percentVal != null)
+        universalVal = info.paddingTopUniversal;
+        if (universalVal != null)
         {
-            float base = getBaseByModeAndVal(widthHint, heightHint, info, percentVal.basemode);
-            bottom = (int) (base * percentVal.percent);
+            float base = UniversalLayoutInfo.getUniversalBase(widthHint, heightHint, info, universalVal);
+            top = (int) (base * universalVal.value);
+        }
+
+        universalVal = info.paddingBottomUniversal;
+        if (universalVal != null)
+        {
+            float base = UniversalLayoutInfo.getUniversalBase(widthHint, heightHint, info, universalVal);
+            bottom = (int) (base * universalVal.value);
         }
         view.setPadding(left, top, right, bottom);
 
@@ -288,16 +291,16 @@ public class UniversalLayoutHelper
 
     }
 
-    private void invokeMethod(String methodName, int widthHint, int heightHint, View view, Class clazz, UniversalLayoutInfo info, UniversalLayoutInfo.UniversalVal percentVal) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException
+    private void invokeMethod(String methodName, int widthHint, int heightHint, View view, Class clazz, UniversalLayoutInfo info, UniversalLayoutInfo.UniversalVal universalVal) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException
     {
         //if (Log.isLoggable(TAG, Log.DEBUG))
-        //    Log.d(TAG, methodName + " ==> " + percentVal);
-        if (percentVal != null)
+        //    Log.d(TAG, methodName + " ==> " + universalVal);
+        if (universalVal != null)
         {
             Method setMaxWidthMethod = clazz.getMethod(methodName, int.class);
             setMaxWidthMethod.setAccessible(true);
-            float base = getBaseByModeAndVal(widthHint, heightHint, info, percentVal.basemode);
-            setMaxWidthMethod.invoke(view, (int) (base * percentVal.percent));
+            float base = UniversalLayoutInfo.getUniversalBase(widthHint, heightHint, info, universalVal);
+            setMaxWidthMethod.invoke(view, (int) (base * universalVal.value));
         }
     }
 
@@ -322,35 +325,35 @@ public class UniversalLayoutHelper
 
         if (info.leftMarginUniversal != null)
         {
-            float base = getBaseByModeAndVal(widthHint, heightHint, info, info.leftMarginUniversal.basemode);
-            params.leftMargin = (int) (base * info.leftMarginUniversal.percent);
+            float base = UniversalLayoutInfo.getUniversalBase(widthHint, heightHint, info, info.leftMarginUniversal);
+            params.leftMargin = (int) (base * info.leftMarginUniversal.value);
         }
         if (info.topMarginUniversal != null)
         {
-            float base = getBaseByModeAndVal(widthHint, heightHint, info, info.topMarginUniversal.basemode);
-            params.topMargin = (int) (base * info.topMarginUniversal.percent);
+            float base = UniversalLayoutInfo.getUniversalBase(widthHint, heightHint, info, info.topMarginUniversal);
+            params.topMargin = (int) (base * info.topMarginUniversal.value);
         }
         if (info.rightMarginUniversal != null)
         {
-            float base = getBaseByModeAndVal(widthHint, heightHint, info, info.rightMarginUniversal.basemode);
-            params.rightMargin = (int) (base * info.rightMarginUniversal.percent);
+            float base = UniversalLayoutInfo.getUniversalBase(widthHint, heightHint, info, info.rightMarginUniversal);
+            params.rightMargin = (int) (base * info.rightMarginUniversal.value);
         }
         if (info.bottomMarginUniversal != null)
         {
-            float base = getBaseByModeAndVal(widthHint, heightHint, info, info.bottomMarginUniversal.basemode);
-            params.bottomMargin = (int) (base * info.bottomMarginUniversal.percent);
+            float base = UniversalLayoutInfo.getUniversalBase(widthHint, heightHint, info, info.bottomMarginUniversal);
+            params.bottomMargin = (int) (base * info.bottomMarginUniversal.value);
         }
         if (info.startMarginUniversal != null)
         {
-            float base = getBaseByModeAndVal(widthHint, heightHint, info, info.startMarginUniversal.basemode);
+            float base = UniversalLayoutInfo.getUniversalBase(widthHint, heightHint, info, info.startMarginUniversal);
             MarginLayoutParamsCompat.setMarginStart(params,
-                    (int) (base * info.startMarginUniversal.percent));
+                    (int) (base * info.startMarginUniversal.value));
         }
         if (info.endMarginUniversal != null)
         {
-            float base = getBaseByModeAndVal(widthHint, heightHint, info, info.endMarginUniversal.basemode);
+            float base = UniversalLayoutInfo.getUniversalBase(widthHint, heightHint, info, info.endMarginUniversal);
             MarginLayoutParamsCompat.setMarginEnd(params,
-                    (int) (base * info.endMarginUniversal.percent));
+                    (int) (base * info.endMarginUniversal.value));
         }
         if (Log.isLoggable(TAG, Log.DEBUG))
         {
@@ -371,13 +374,13 @@ public class UniversalLayoutHelper
 
         if (info.widthUniversal != null)
         {
-            float base = getBaseByModeAndVal(widthHint, heightHint, info, info.widthUniversal.basemode);
-            params.width = (int) (base * info.widthUniversal.percent);
+            float base = UniversalLayoutInfo.getUniversalBase(widthHint, heightHint, info, info.widthUniversal);
+            params.width = (int) (base * info.widthUniversal.value);
         }
         if (info.heightUniversal != null)
         {
-            float base = getBaseByModeAndVal(widthHint, heightHint, info, info.heightUniversal.basemode);
-            params.height = (int) (base * info.heightUniversal.percent);
+            float base = UniversalLayoutInfo.getUniversalBase(widthHint, heightHint, info, info.heightUniversal);
+            params.height = (int) (base * info.heightUniversal.value);
         }
 
         if (Log.isLoggable(TAG, Log.DEBUG))
@@ -419,7 +422,7 @@ public class UniversalLayoutHelper
     }
 
     ///////////// 赋值过程 /////////////
-    
+
     /**
      * Constructs a UniversalLayoutInfo from attributes associated with a View. Call this method from
      * {@code LayoutParams(Context c, AttributeSet attrs)} constructor.
@@ -463,26 +466,26 @@ public class UniversalLayoutHelper
 
     private static UniversalLayoutInfo setWidthAndHeightVal(TypedArray array, UniversalLayoutInfo info)
     {
-        UniversalLayoutInfo.UniversalVal percentVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_widthUniversal, true);
-        if (percentVal != null)
+        UniversalLayoutInfo.UniversalVal universalVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_widthUniversal, true);
+        if (universalVal != null)
         {
             if (Log.isLoggable(TAG, Log.VERBOSE))
             {
-                Log.v(TAG, "percent width: " + percentVal.percent);
+                Log.v(TAG, "value width: " + universalVal.value);
             }
             info = checkForInfoExists(info);
-            info.widthUniversal = percentVal;
+            info.widthUniversal = universalVal;
         }
-        percentVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_heightUniversal, false);
+        universalVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_heightUniversal, false);
 
-        if (percentVal != null)
+        if (universalVal != null)
         {
             if (Log.isLoggable(TAG, Log.VERBOSE))
             {
-                Log.v(TAG, "percent height: " + percentVal.percent);
+                Log.v(TAG, "value height: " + universalVal.value);
             }
             info = checkForInfoExists(info);
-            info.heightUniversal = percentVal;
+            info.heightUniversal = universalVal;
         }
 
         return info;
@@ -491,15 +494,15 @@ public class UniversalLayoutHelper
     private static UniversalLayoutInfo setTextSizeSupportVal(TypedArray array, UniversalLayoutInfo info)
     {
         //textSizeUniversal 默认以宽度作为基准
-        UniversalLayoutInfo.UniversalVal percentVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_textSizeUniversal, true);
-        if (percentVal != null)
+        UniversalLayoutInfo.UniversalVal universalVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_textSizeUniversal, true);
+        if (universalVal != null)
         {
             if (Log.isLoggable(TAG, Log.VERBOSE))
             {
-                Log.v(TAG, "percent text size: " + percentVal.percent);
+                Log.v(TAG, "value text size: " + universalVal.value);
             }
             info = checkForInfoExists(info);
-            info.textSizeUniversal = percentVal;
+            info.textSizeUniversal = universalVal;
         }
 
         return info;
@@ -508,40 +511,40 @@ public class UniversalLayoutHelper
     private static UniversalLayoutInfo setMinMaxWidthHeightRelatedVal(TypedArray array, UniversalLayoutInfo info)
     {
         //maxWidth
-        UniversalLayoutInfo.UniversalVal percentVal = getUniversalVal(array,
+        UniversalLayoutInfo.UniversalVal universalVal = getUniversalVal(array,
                 R.styleable.UniversalLayoutInfo_layout_maxWidthUniversal,
                 true);
-        if (percentVal != null)
+        if (universalVal != null)
         {
             info = checkForInfoExists(info);
-            info.maxWidthUniversal = percentVal;
+            info.maxWidthUniversal = universalVal;
         }
         //maxHeight
-        percentVal = getUniversalVal(array,
+        universalVal = getUniversalVal(array,
                 R.styleable.UniversalLayoutInfo_layout_maxHeightUniversal,
                 false);
-        if (percentVal != null)
+        if (universalVal != null)
         {
             info = checkForInfoExists(info);
-            info.maxHeightUniversal = percentVal;
+            info.maxHeightUniversal = universalVal;
         }
         //minWidth
-        percentVal = getUniversalVal(array,
+        universalVal = getUniversalVal(array,
                 R.styleable.UniversalLayoutInfo_layout_minWidthUniversal,
                 true);
-        if (percentVal != null)
+        if (universalVal != null)
         {
             info = checkForInfoExists(info);
-            info.minWidthUniversal = percentVal;
+            info.minWidthUniversal = universalVal;
         }
         //minHeight
-        percentVal = getUniversalVal(array,
+        universalVal = getUniversalVal(array,
                 R.styleable.UniversalLayoutInfo_layout_minHeightUniversal,
                 false);
-        if (percentVal != null)
+        if (universalVal != null)
         {
             info = checkForInfoExists(info);
-            info.minHeightUniversal = percentVal;
+            info.minHeightUniversal = universalVal;
         }
 
         return info;
@@ -550,87 +553,87 @@ public class UniversalLayoutHelper
     private static UniversalLayoutInfo setMarginRelatedVal(TypedArray array, UniversalLayoutInfo info)
     {
         //默认margin参考宽度
-        UniversalLayoutInfo.UniversalVal percentVal =
+        UniversalLayoutInfo.UniversalVal universalVal =
                 getUniversalVal(array,
                         R.styleable.UniversalLayoutInfo_layout_marginUniversal,
                         true);
 
-        if (percentVal != null)
+        if (universalVal != null)
         {
             if (Log.isLoggable(TAG, Log.VERBOSE))
             {
-                Log.v(TAG, "percent margin: " + percentVal.percent);
+                Log.v(TAG, "value margin: " + universalVal.value);
             }
             info = checkForInfoExists(info);
-            info.leftMarginUniversal = percentVal;
-            info.topMarginUniversal = percentVal;
-            info.rightMarginUniversal = percentVal;
-            info.bottomMarginUniversal = percentVal;
+            info.leftMarginUniversal = universalVal;
+            info.topMarginUniversal = universalVal;
+            info.rightMarginUniversal = universalVal;
+            info.bottomMarginUniversal = universalVal;
         }
 
-        percentVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_marginLeftUniversal, true);
-        if (percentVal != null)
+        universalVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_marginLeftUniversal, true);
+        if (universalVal != null)
         {
             if (Log.isLoggable(TAG, Log.VERBOSE))
             {
-                Log.v(TAG, "percent left margin: " + percentVal.percent);
+                Log.v(TAG, "value left margin: " + universalVal.value);
             }
             info = checkForInfoExists(info);
-            info.leftMarginUniversal = percentVal;
+            info.leftMarginUniversal = universalVal;
         }
 
-        percentVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_marginTopUniversal, false);
-        if (percentVal != null)
+        universalVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_marginTopUniversal, false);
+        if (universalVal != null)
         {
             if (Log.isLoggable(TAG, Log.VERBOSE))
             {
-                Log.v(TAG, "percent top margin: " + percentVal.percent);
+                Log.v(TAG, "value top margin: " + universalVal.value);
             }
             info = checkForInfoExists(info);
-            info.topMarginUniversal = percentVal;
+            info.topMarginUniversal = universalVal;
         }
 
-        percentVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_marginRightUniversal, true);
-        if (percentVal != null)
+        universalVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_marginRightUniversal, true);
+        if (universalVal != null)
         {
             if (Log.isLoggable(TAG, Log.VERBOSE))
             {
-                Log.v(TAG, "percent right margin: " + percentVal.percent);
+                Log.v(TAG, "value right margin: " + universalVal.value);
             }
             info = checkForInfoExists(info);
-            info.rightMarginUniversal = percentVal;
+            info.rightMarginUniversal = universalVal;
         }
 
-        percentVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_marginBottomUniversal, false);
-        if (percentVal != null)
+        universalVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_marginBottomUniversal, false);
+        if (universalVal != null)
         {
             if (Log.isLoggable(TAG, Log.VERBOSE))
             {
-                Log.v(TAG, "percent bottom margin: " + percentVal.percent);
+                Log.v(TAG, "value bottom margin: " + universalVal.value);
             }
             info = checkForInfoExists(info);
-            info.bottomMarginUniversal = percentVal;
+            info.bottomMarginUniversal = universalVal;
         }
-        percentVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_marginStartUniversal, true);
-        if (percentVal != null)
+        universalVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_marginStartUniversal, true);
+        if (universalVal != null)
         {
             if (Log.isLoggable(TAG, Log.VERBOSE))
             {
-                Log.v(TAG, "percent start margin: " + percentVal.percent);
+                Log.v(TAG, "value start margin: " + universalVal.value);
             }
             info = checkForInfoExists(info);
-            info.startMarginUniversal = percentVal;
+            info.startMarginUniversal = universalVal;
         }
 
-        percentVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_marginEndUniversal, true);
-        if (percentVal != null)
+        universalVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_marginEndUniversal, true);
+        if (universalVal != null)
         {
             if (Log.isLoggable(TAG, Log.VERBOSE))
             {
-                Log.v(TAG, "percent end margin: " + percentVal.percent);
+                Log.v(TAG, "value end margin: " + universalVal.value);
             }
             info = checkForInfoExists(info);
-            info.endMarginUniversal = percentVal;
+            info.endMarginUniversal = universalVal;
         }
 
         return info;
@@ -645,53 +648,53 @@ public class UniversalLayoutHelper
     private static UniversalLayoutInfo setPaddingRelatedVal(TypedArray array, UniversalLayoutInfo info)
     {
         //默认padding以宽度为标准
-        UniversalLayoutInfo.UniversalVal percentVal = getUniversalVal(array,
+        UniversalLayoutInfo.UniversalVal universalVal = getUniversalVal(array,
                 R.styleable.UniversalLayoutInfo_layout_paddingUniversal,
                 true);
-        if (percentVal != null)
+        if (universalVal != null)
         {
             info = checkForInfoExists(info);
-            info.paddingLeftUniversal = percentVal;
-            info.paddingRightUniversal = percentVal;
-            info.paddingBottomUniversal = percentVal;
-            info.paddingTopUniversal = percentVal;
+            info.paddingLeftUniversal = universalVal;
+            info.paddingRightUniversal = universalVal;
+            info.paddingBottomUniversal = universalVal;
+            info.paddingTopUniversal = universalVal;
         }
 
 
-        percentVal = getUniversalVal(array,
+        universalVal = getUniversalVal(array,
                 R.styleable.UniversalLayoutInfo_layout_paddingLeftUniversal,
                 true);
-        if (percentVal != null)
+        if (universalVal != null)
         {
             info = checkForInfoExists(info);
-            info.paddingLeftUniversal = percentVal;
+            info.paddingLeftUniversal = universalVal;
         }
 
-        percentVal = getUniversalVal(array,
+        universalVal = getUniversalVal(array,
                 R.styleable.UniversalLayoutInfo_layout_paddingRightUniversal,
                 true);
-        if (percentVal != null)
+        if (universalVal != null)
         {
             info = checkForInfoExists(info);
-            info.paddingRightUniversal = percentVal;
+            info.paddingRightUniversal = universalVal;
         }
 
-        percentVal = getUniversalVal(array,
+        universalVal = getUniversalVal(array,
                 R.styleable.UniversalLayoutInfo_layout_paddingTopUniversal,
                 true);
-        if (percentVal != null)
+        if (universalVal != null)
         {
             info = checkForInfoExists(info);
-            info.paddingTopUniversal = percentVal;
+            info.paddingTopUniversal = universalVal;
         }
 
-        percentVal = getUniversalVal(array,
+        universalVal = getUniversalVal(array,
                 R.styleable.UniversalLayoutInfo_layout_paddingBottomUniversal,
                 true);
-        if (percentVal != null)
+        if (universalVal != null)
         {
             info = checkForInfoExists(info);
-            info.paddingBottomUniversal = percentVal;
+            info.paddingBottomUniversal = universalVal;
         }
 
         return info;
@@ -715,8 +718,8 @@ public class UniversalLayoutHelper
     private static UniversalLayoutInfo.UniversalVal getUniversalVal(TypedArray array, int index, boolean baseWidth)
     {
         String sizeStr = array.getString(index);
-        UniversalLayoutInfo.UniversalVal percentVal = getUniversalVal(sizeStr, baseWidth);
-        return percentVal;
+        UniversalLayoutInfo.UniversalVal universalVal = getUniversalVal(sizeStr, baseWidth);
+        return universalVal;
     }
 
     private static final String REGEX_PERCENT = "^(([0-9]+)([.]([0-9]+))?|([.]([0-9]+))?)(%|a)([s]?[wh]?)$";
@@ -750,90 +753,62 @@ public class UniversalLayoutHelper
 
         float percent = Float.parseFloat(floatVal) / 100f;
 
-        UniversalLayoutInfo.UniversalVal percentVal = new UniversalLayoutInfo.UniversalVal();
-        percentVal.percent = percent;
+        UniversalLayoutInfo.UniversalVal universalVal = new UniversalLayoutInfo.UniversalVal();
+        universalVal.value = percent;
         if (percentStr.endsWith(UniversalLayoutInfo.BaseMode.SW))
         {
-            percentVal.basemode = UniversalLayoutInfo.BaseMode.SCREEN_WIDTH;
+            universalVal.basemode = UniversalLayoutInfo.BaseMode.SCREEN_WIDTH;
         } else if (percentStr.endsWith(UniversalLayoutInfo.BaseMode.SH))
         {
-            percentVal.basemode = UniversalLayoutInfo.BaseMode.SCREEN_HEIGHT;
+            universalVal.basemode = UniversalLayoutInfo.BaseMode.SCREEN_HEIGHT;
         } else if (percentStr.endsWith(UniversalLayoutInfo.BaseMode.AW))
         {
-            percentVal.percent = Float.parseFloat(floatVal);
-            percentVal.basemode = UniversalLayoutInfo.BaseMode.AUTO_WIDTH;
+            universalVal.value = Float.parseFloat(floatVal);
+            universalVal.basemode = UniversalLayoutInfo.BaseMode.AUTO_WIDTH;
         } else if (percentStr.endsWith(UniversalLayoutInfo.BaseMode.AH))
         {
-            percentVal.percent = Float.parseFloat(floatVal);
-            percentVal.basemode = UniversalLayoutInfo.BaseMode.AUTO_HEIGHT;
+            universalVal.value = Float.parseFloat(floatVal);
+            universalVal.basemode = UniversalLayoutInfo.BaseMode.AUTO_HEIGHT;
         } else if (percentStr.endsWith(UniversalLayoutInfo.BaseMode.PERCENT))
         {
             if (isOnWidth)
             {
-                percentVal.basemode = UniversalLayoutInfo.BaseMode.PERCENT_WIDTH;
+                universalVal.basemode = UniversalLayoutInfo.BaseMode.PERCENT_WIDTH;
             } else
             {
-                percentVal.basemode = UniversalLayoutInfo.BaseMode.PERCENT_HEIGHT;
+                universalVal.basemode = UniversalLayoutInfo.BaseMode.PERCENT_HEIGHT;
             }
         } else if (percentStr.endsWith(UniversalLayoutInfo.BaseMode.SCREEN))
         {
             if (isOnWidth)
             {
-                percentVal.basemode = UniversalLayoutInfo.BaseMode.SCREEN_WIDTH;
+                universalVal.basemode = UniversalLayoutInfo.BaseMode.SCREEN_WIDTH;
             } else
             {
-                percentVal.basemode = UniversalLayoutInfo.BaseMode.SCREEN_HEIGHT;
+                universalVal.basemode = UniversalLayoutInfo.BaseMode.SCREEN_HEIGHT;
             }
         } else if (percentStr.endsWith(UniversalLayoutInfo.BaseMode.AUTO))
         {
-            percentVal.percent = Float.parseFloat(floatVal);
+            universalVal.value = Float.parseFloat(floatVal);
             if (isOnWidth)
             {
-                percentVal.basemode = UniversalLayoutInfo.BaseMode.AUTO_WIDTH;
+                universalVal.basemode = UniversalLayoutInfo.BaseMode.AUTO_WIDTH;
             } else
             {
-                percentVal.basemode = UniversalLayoutInfo.BaseMode.AUTO_HEIGHT;
+                universalVal.basemode = UniversalLayoutInfo.BaseMode.AUTO_HEIGHT;
             }
         } else if (percentStr.endsWith(UniversalLayoutInfo.BaseMode.W))
         {
-            percentVal.basemode = UniversalLayoutInfo.BaseMode.PERCENT_WIDTH;
+            universalVal.basemode = UniversalLayoutInfo.BaseMode.PERCENT_WIDTH;
         } else if (percentStr.endsWith(UniversalLayoutInfo.BaseMode.H))
         {
-            percentVal.basemode = UniversalLayoutInfo.BaseMode.PERCENT_HEIGHT;
+            universalVal.basemode = UniversalLayoutInfo.BaseMode.PERCENT_HEIGHT;
         } else
         {
             throw new IllegalArgumentException("the " + percentStr + " must be endWith [%|%w|%h|%s|%sw|%sh|a|aw|ah]");
         }
 
-        return percentVal;
-    }
-
-    /**
-     * 获取不同模式基础值
-     * @param widthHint
-     * @param heightHint
-     * @param info
-     * @param baseMode
-     * @return
-     */
-    private static float getBaseByModeAndVal(int widthHint, int heightHint, UniversalLayoutInfo info, UniversalLayoutInfo.BaseMode baseMode)
-    {
-        switch (baseMode)
-        {
-            case PERCENT_HEIGHT:
-                return heightHint;
-            case PERCENT_WIDTH:
-                return widthHint;
-            case SCREEN_WIDTH:
-                return mWidthScreen;
-            case SCREEN_HEIGHT:
-                return mHeightScreen;
-            case AUTO_HEIGHT:
-                return mHeightScreen / info.heightDesign;
-            case AUTO_WIDTH:
-                return mWidthScreen / info.widthDesign;
-        }
-        return 0;
+        return universalVal;
     }
 
     public void setHorizontalSwapHeightWidth(boolean swap){
@@ -900,7 +875,7 @@ public class UniversalLayoutHelper
         {
             return false;
         }
-        return state == ViewCompat.MEASURED_STATE_TOO_SMALL && info.widthUniversal.percent >= 0 &&
+        return state == ViewCompat.MEASURED_STATE_TOO_SMALL && info.widthUniversal.value >= 0 &&
                 info.mPreservedParams.width == ViewGroup.LayoutParams.WRAP_CONTENT;
     }
 
@@ -911,7 +886,7 @@ public class UniversalLayoutHelper
         {
             return false;
         }
-        return state == ViewCompat.MEASURED_STATE_TOO_SMALL && info.heightUniversal.percent >= 0 &&
+        return state == ViewCompat.MEASURED_STATE_TOO_SMALL && info.heightUniversal.value >= 0 &&
                 info.mPreservedParams.height == ViewGroup.LayoutParams.WRAP_CONTENT;
     }
 
@@ -969,16 +944,16 @@ public class UniversalLayoutHelper
         public static class UniversalVal
         {
 
-            public float percent = -1;
+            public float value = -1;
             public BaseMode basemode;
 
             public UniversalVal()
             {
             }
 
-            public UniversalVal(float percent, BaseMode baseMode)
+            public UniversalVal(float value, BaseMode baseMode)
             {
-                this.percent = percent;
+                this.value = value;
                 this.basemode = baseMode;
             }
 
@@ -986,16 +961,16 @@ public class UniversalLayoutHelper
             public String toString()
             {
                 return "UniversalVal{" +
-                        "percent=" + percent +
+                        "value=" + value +
                         ", basemode=" + basemode.name() +
                         '}';
             }
         }
 
-        public UniversalVal widthUniversal;
-        public UniversalVal heightUniversal;
         public float widthDesign;
         public float heightDesign;
+        public UniversalVal widthUniversal;
+        public UniversalVal heightUniversal;
 
         public UniversalVal leftMarginUniversal;
         public UniversalVal topMarginUniversal;
@@ -1036,9 +1011,70 @@ public class UniversalLayoutHelper
             return mHeightScreen;
         }
 
-        public int getUniversalSize(int parentWidth, int parentHeight, UniversalLayoutInfo info, UniversalVal val){
-            float base = getBaseByModeAndVal(parentWidth, parentHeight, info, val.basemode);
-            return (int) (base * val.percent);
+        public int getUniversalSize(UniversalLayoutInfo info, UniversalVal val){
+            return getUniversalSize(0, 0, info, val);
+        }
+
+        public int getUniversalSize(int widthPercent, int heightPercent, UniversalLayoutInfo info, UniversalVal val){
+            return getUniversalSize(widthPercent, heightPercent, mWidthScreen, mHeightScreen, info, val);
+        }
+
+        public int getUniversalSize(int widthPercent, int heightPercent, int widthScreen, int heightScreen,
+                                    UniversalLayoutInfo info, UniversalLayoutInfo.UniversalVal val){
+            float base = getUniversalBase(widthPercent, heightPercent, widthScreen, heightScreen, info, val);
+            return (int) (base * val.value);
+        }
+
+        public static float getUniversalBase(UniversalLayoutInfo info, UniversalLayoutInfo.UniversalVal val)
+        {
+            return getUniversalBase(0, 0, mWidthScreen, mHeightScreen, info, val);
+        }
+
+        public static float getUniversalBase(int widthPercent, int heightPercent, UniversalLayoutInfo info, UniversalLayoutInfo.UniversalVal val)
+        {
+            return getUniversalBase(widthPercent, heightPercent, mWidthScreen, mHeightScreen, info, val);
+        }
+
+        /**
+         * 获取不同模式基础值
+         * @param widthPercent
+         * @param heightPercent
+         * @param widthScreen
+         * @param heightScreen
+         * @param info
+         * @param val
+         * @return
+         */
+        public static float getUniversalBase(int widthPercent, int heightPercent, int widthScreen, int heightScreen,
+                                             UniversalLayoutInfo info, UniversalLayoutInfo.UniversalVal val)
+        {
+            switch (val.basemode)
+            {
+                case PERCENT_WIDTH:
+                    return widthPercent;
+                case PERCENT_HEIGHT:
+                    return heightPercent;
+                case SCREEN_WIDTH:
+                    return widthScreen;
+                case SCREEN_HEIGHT:
+                    return heightScreen;
+                case AUTO_WIDTH:
+                    return widthScreen / info.widthDesign;
+                case AUTO_HEIGHT:
+                    return heightScreen / info.heightDesign;
+            }
+            return 0;
+        }
+
+        public static AttributeSet getAttributeSet(Context context, @LayoutRes int layoutRes){
+            XmlResourceParser parser = context.getResources().getLayout(layoutRes);
+            AttributeSet attrs;
+            try {
+                attrs = Xml.asAttributeSet(parser);
+            } finally {
+                parser.close();
+            }
+            return attrs;
         }
 
         @Override

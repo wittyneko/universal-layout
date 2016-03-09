@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:childStyle="@style/DesignWidthHeight320">
+    app:childStyle="@style/Design320x568">
 
     <silicar.tutu.universal.UniversalLinearLayout
         android:orientation="vertical"
@@ -13,10 +13,10 @@
         android:layout_height="match_parent"
         android:layout_margin="30dp"
         android:background="#aaa"
-        app:childStyle="@style/DesignWidthHeight320">
+        app:childStyle="@style/Design320x568">
 
         <TextView
-            style="@style/LayoutWidthHeightWrap"
+            style="@style/LayoutWrapWrap"
             android:background="#666"
             android:textColor="@android:color/white"
             android:text="Design Width 320  Height 568 TextSize 16a"
@@ -26,30 +26,35 @@
         <Button
             android:id="@+id/auto_screen"
             android:text="Auto Screen Sample \n Width 160aw Height 80ah"
-            style="@style/LayoutWidthHeightZero"
+            style="@style/LayoutZeroZero"
             app:layout_widthUniversal="160a"
             app:layout_heightUniversal="80a"/>
 
         <Button
             android:id="@+id/percent_parent"
             android:text="Percent Parent Sample \n Width 50%w Height 20%h"
-            style="@style/LayoutWidthHeightZero"
+            style="@style/LayoutZeroZero"
             app:layout_widthUniversal="50%"
             app:layout_heightUniversal="20%"/>
 
         <Button
             android:id="@+id/percent_screen"
             android:text="Percent Screen Sample \n Width 50%sw Height 20%sh"
-            style="@style/LayoutWidthHeightZero"
+            style="@style/LayoutZeroZero"
             app:layout_widthUniversal="50%s"
             app:layout_heightUniversal="20%s"/>
 
         <Button
             android:id="@+id/code_set"
             android:text="Code Set"
-            style="@style/LayoutWidthHeightZero"
+            style="@style/LayoutZeroZero"
             app:layout_widthUniversal="80a"
             app:layout_heightUniversal="40a"/>
+
+        <Button
+            android:id="@+id/code_set_2"
+            android:text="Code Set 2"
+            style="@style/LayoutWrapWrap"/>
     </silicar.tutu.universal.UniversalLinearLayout>
 
 </silicar.tutu.universal.UniversalLinearLayout>

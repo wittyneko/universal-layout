@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        style="@style/LayoutWidthHeightWrap"
+        style="@style/LayoutWrapWrap"
         android:textColor="@android:color/white"
         app:layout_marginTopUniversal="1%"
         android:background="#666"
@@ -17,7 +17,7 @@
         app:layout_heightUniversal="8%sw"/>
 
     <TextView
-        style="@style/LayoutWidthHeightWrap"
+        style="@style/LayoutWrapWrap"
         app:layout_marginTopUniversal="1%"
         android:background="#666"
         android:textColor="@android:color/white"
@@ -32,10 +32,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_marginUniversal="5%s"
-        app:childStyle="@style/DesignWidthHeight320">
+        app:childStyle="@style/Design320x568">
 
         <TextView
-            style="@style/LayoutWidthHeightWrap"
+            style="@style/LayoutWrapWrap"
             android:textColor="@android:color/white"
             app:layout_marginTopUniversal="1%"
             android:background="#666"
@@ -43,7 +43,7 @@
             app:layout_textSizeUniversal="5%s"/>
 
         <TextView
-            style="@style/LayoutWidthHeightWrap"
+            style="@style/LayoutWrapWrap"
             android:textColor="@android:color/white"
             app:layout_marginTopUniversal="1%"
             android:background="#666"
@@ -53,7 +53,7 @@
             app:layout_heightUniversal="15%w"/>
 
         <TextView
-            style="@style/LayoutWidthHeightWrap"
+            style="@style/LayoutWrapWrap"
             android:textColor="@android:color/white"
             app:layout_marginTopUniversal="1%"
             android:background="#666"
@@ -63,7 +63,7 @@
             app:layout_heightUniversal="15%sw"/>
 
         <TextView
-            style="@style/LayoutWidthHeightWrap"
+            style="@style/LayoutWrapWrap"
             app:layout_marginTopUniversal="1%"
             android:background="#666"
             android:textColor="@android:color/white"
@@ -73,7 +73,7 @@
             app:layout_heightUniversal="15%"/>
 
         <TextView
-            style="@style/LayoutWidthHeightWrap"
+            style="@style/LayoutWrapWrap"
             app:layout_marginTopUniversal="1%"
             android:background="#666"
             android:textColor="@android:color/white"

@@ -8,37 +8,37 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="DesignWidthHeight640">
+    <style name="Design640x1136">
         <item name="layout_widthDesign">640px</item>
         <item name="layout_heightDesign">1136px</item>
     </style>
 
-    <style name="DesignWidthHeight320">
+    <style name="Design320x568">
         <item name="layout_widthDesign">320px</item>
         <item name="layout_heightDesign">568px</item>
     </style>
 
-    <style name="DesignWidthHeight640.LayoutWidthHeightZero">
+    <style name="Design640x1136.LayoutZeroZero">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
     </style>
 
-    <style name="DesignWidthHeight320.LayoutWidthHeightZero">
+    <style name="Design320x568.LayoutZeroZero">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
     </style>
 
-    <style name="LayoutWidthHeightZero">
+    <style name="LayoutZeroZero">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
     </style>
 
-    <style name="LayoutWidthHeightMatch">
+    <style name="LayoutMatchMatch">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>
 
-    <style name="LayoutWidthHeightWrap">
+    <style name="LayoutWrapWrap">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>

@@ -5,10 +5,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:childStyle="@style/DesignWidthHeight320">
+    app:childStyle="@style/Design320x568">
 
     <TextView
-        style="@style/LayoutWidthHeightWrap"
+        style="@style/LayoutWrapWrap"
         android:textColor="@android:color/white"
         app:layout_marginTopUniversal="5a"
         android:background="#666"
@@ -17,7 +17,7 @@
         app:layout_widthUniversal="320a"/>
 
     <TextView
-        style="@style/DesignWidthHeight640"
+        style="@style/Design640x1136"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/white"
@@ -28,7 +28,7 @@
         app:layout_widthUniversal="320a"/>
 
     <TextView
-        style="@style/LayoutWidthHeightWrap"
+        style="@style/LayoutWrapWrap"
         android:textColor="@android:color/white"
         app:layout_marginTopUniversal="5a"
         android:background="#666"
@@ -38,7 +38,7 @@
         app:layout_heightUniversal="25aw"/>
 
     <TextView
-        style="@style/LayoutWidthHeightWrap"
+        style="@style/LayoutWrapWrap"
         app:layout_marginTopUniversal="5a"
         android:background="#666"
         android:textColor="@android:color/white"
@@ -48,7 +48,7 @@
         app:layout_heightUniversal="25a"/>
 
     <TextView
-        style="@style/LayoutWidthHeightWrap"
+        style="@style/LayoutWrapWrap"
         android:textColor="@android:color/white"
         app:layout_marginTopUniversal="5a"
         android:background="#666"
@@ -58,7 +58,7 @@
         app:layout_heightUniversal="60aw"/>
 
     <TextView
-        style="@style/LayoutWidthHeightWrap"
+        style="@style/LayoutWrapWrap"
         app:layout_marginTopUniversal="5a"
         android:background="#666"
         android:textColor="@android:color/white"
