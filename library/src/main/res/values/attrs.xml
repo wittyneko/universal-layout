@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="UniversalLayout">
+        <attr name="childStyle" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="UniversalLayoutInfo">
+
+        <attr name="layout_widthDesign" format="dimension"/>
+        <attr name="layout_heightDesign" format="dimension"/>
+
+        <attr name="layout_widthUniversal" format="string"/>
+        <attr name="layout_heightUniversal" format="string"/>
+
+        <attr name="layout_marginUniversal" format="string"/>
+        <attr name="layout_marginLeftUniversal" format="string"/>
+        <attr name="layout_marginTopUniversal" format="string"/>
+        <attr name="layout_marginRightUniversal" format="string"/>
+        <attr name="layout_marginBottomUniversal" format="string"/>
+        <attr name="layout_marginStartUniversal" format="string"/>
+        <attr name="layout_marginEndUniversal" format="string"/>
+
+        <attr name="layout_textSizeUniversal" format="string"/>
+
+        <attr name="layout_maxWidthUniversal" format="string"/>
+        <attr name="layout_maxHeightUniversal" format="string"/>
+        <attr name="layout_minWidthUniversal" format="string"/>
+        <attr name="layout_minHeightUniversal" format="string"/>
+
+        <attr name="layout_paddingUniversal" format="string"/>
+        <attr name="layout_paddingTopUniversal" format="string"/>
+        <attr name="layout_paddingBottomUniversal" format="string"/>
+        <attr name="layout_paddingLeftUniversal" format="string"/>
+        <attr name="layout_paddingRightUniversal" format="string"/>
+    </declare-styleable>
+
+</resources>
