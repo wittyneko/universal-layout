@@ -1,8 +1,10 @@
 package silicar.tutu.sample;
 
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import silicar.tutu.universal.UniversalLayoutHelper.UniversalLayoutInfo;
@@ -24,6 +26,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         codeView2 = findViewById(R.id.code_set_2);
         codeView.setOnClickListener(this);
         codeView2.setOnClickListener(this);
+
+        TypedArray array = obtainStyledAttributes(R.style.Design320x568, R.styleable.UniversalLayoutInfo);
+        float widthDesign = array.getDimension(R.styleable.UniversalLayoutInfo_layout_widthDesign, 0);
+        float heightDesign = array.getDimension(R.styleable.UniversalLayoutInfo_layout_heightDesign, 0);
+        Log.e("Design320x568", "width:" + widthDesign + "; height:" + heightDesign);
+        array.recycle();
+        array = obtainStyledAttributes(R.style.Design640x1136, R.styleable.UniversalLayoutInfo);
+        widthDesign = array.getDimension(R.styleable.UniversalLayoutInfo_layout_widthDesign, 0);
+        heightDesign = array.getDimension(R.styleable.UniversalLayoutInfo_layout_heightDesign, 0);
+        Log.e("Design640x1136", "width:" + widthDesign + "; height:" + heightDesign);
+        array.recycle();
     }
 
     @Override
