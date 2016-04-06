@@ -44,7 +44,7 @@
 	</style>
 	```
 
-2. 在xml布局中加入我们的样式就行了，顺带介绍下工作原理了。很简单的就是把设计的尺寸加入到LayoutParams里，每个UniversalLayout的子控件都有一个自己的设计尺寸。那不是得每个都写尺寸信息之不累死人也会烦死人，所以才用到style，当然不需要每个写，也不需要每个都添加style，只要在继承UniversalLayout的父控件加个childStyle，子控件就会默认使用指定的style，如果子控件设置了Design会覆盖掉默认style，这样一来就算设计换了尺寸有多个尺寸，我们只要改下style就OK了是不是很方便，原理自行阅读源码。
+2. 在xml布局中加入我们的样式就行了，顺带介绍下工作原理了。很简单的就是把设计的尺寸加入到LayoutParams里，每个UniversalLayout的子控件都有一个自己的设计尺寸。那不是得每个都写尺寸信息之不累死人也会烦死人，所以才用到style，当然不需要每个写，也不需要每个都添加style，只要在继承UniversalLayout的父控件加个childStyle，子控件就会默认使用指定的style，如果子控件设置了Design会覆盖掉默认style，这样一来就算设计换了尺寸有多个尺寸，我们只要改下style就OK了，原理自行阅读源码。
 	```xml
     <silicar.tutu.universal.UniversalLinearLayout
         android:orientation="vertical"
@@ -115,7 +115,7 @@
     </silicar.tutu.universal.UniversalLinearLayout>
 	```
 
-	![AutoLayout](https://github.com/brady9308/resource/blob/master/images/universal_layout/auto_nuxus_4.png)
+	![AutoLayout](http://brady9308.github.io/images/universal_layout/auto_nuxus_4.png)
 
 	Nexus 4预览效果(768x1280)，同样建议以宽度为基准
 
@@ -130,7 +130,7 @@
         codeView.requestLayout();
 		```
 
-	- 普通布局，这功能后来添加的，把计算方法移到UniversalLayoutInfo里，不影响效率，懒得动手改UniversalLayoutHelp，哪位有空fork帮忙改不胜感谢
+	- 普通布局
 		```java
         UniversalLayoutInfo info2 = new UniversalLayoutInfo();
         info2.widthDesign = 640;
@@ -236,11 +236,11 @@
 
 适配的时候建议宽度作为基础，Android的屏幕比不一定都是9：16，不同的手机会有不同的显示尤其是魅族这类奇葩机型
 
-![Nexus 4](https://github.com/brady9308/resource/blob/master/images/universal_layout/percent_nexus_4.png)
+![Nexus 4](http://brady9308.github.io/images/universal_layout/percent_nexus_4.png)
 
 Nexus 4预览效果(768x1280)
 
-![Galaxy Nexus](https://github.com/brady9308/resource/blob/master/images/universal_layout/percent_galaxy_nexus.png)
+![Galaxy Nexus](http://brady9308.github.io/images/universal_layout/percent_galaxy_nexus.png)
 
 Galaxy Nexus 预览效果(720x1280)
 
