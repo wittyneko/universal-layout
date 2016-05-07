@@ -9,30 +9,216 @@
 
         <attr name="layout_widthDesign" format="dimension"/>
         <attr name="layout_heightDesign" format="dimension"/>
+        <attr name="layout_defWidth" format="boolean"/>
 
-        <attr name="layout_widthUniversal" format="string"/>
-        <attr name="layout_heightUniversal" format="string"/>
+        <attr name="layout_widthExt" format="string"/>
+        <attr name="layout_heightExt" format="string"/>
 
-        <attr name="layout_marginUniversal" format="string"/>
-        <attr name="layout_marginLeftUniversal" format="string"/>
-        <attr name="layout_marginTopUniversal" format="string"/>
-        <attr name="layout_marginRightUniversal" format="string"/>
-        <attr name="layout_marginBottomUniversal" format="string"/>
-        <attr name="layout_marginStartUniversal" format="string"/>
-        <attr name="layout_marginEndUniversal" format="string"/>
+        <attr name="layout_marginExt" format="string"/>
+        <attr name="layout_marginLeftExt" format="string"/>
+        <attr name="layout_marginTopExt" format="string"/>
+        <attr name="layout_marginRightExt" format="string"/>
+        <attr name="layout_marginBottomExt" format="string"/>
+        <attr name="layout_marginStartExt" format="string"/>
+        <attr name="layout_marginEndExt" format="string"/>
 
-        <attr name="layout_textSizeUniversal" format="string"/>
+        <attr name="paddingExt" format="string"/>
+        <attr name="paddingTopExt" format="string"/>
+        <attr name="paddingBottomExt" format="string"/>
+        <attr name="paddingLeftExt" format="string"/>
+        <attr name="paddingRightExt" format="string"/>
 
-        <attr name="layout_maxWidthUniversal" format="string"/>
-        <attr name="layout_maxHeightUniversal" format="string"/>
-        <attr name="layout_minWidthUniversal" format="string"/>
-        <attr name="layout_minHeightUniversal" format="string"/>
+        <attr name="maxWidthExt" format="string"/>
+        <attr name="maxHeightExt" format="string"/>
+        <attr name="minWidthExt" format="string"/>
+        <attr name="minHeightExt" format="string"/>
 
-        <attr name="layout_paddingUniversal" format="string"/>
-        <attr name="layout_paddingTopUniversal" format="string"/>
-        <attr name="layout_paddingBottomUniversal" format="string"/>
-        <attr name="layout_paddingLeftUniversal" format="string"/>
-        <attr name="layout_paddingRightUniversal" format="string"/>
+        <attr name="textSizeExt" format="string"/>
+
+    </declare-styleable>
+
+    <!-- 参数提示 -->
+    <declare-styleable name="ViewGroup">
+
+        <!-- 私有 -->
+        <attr name="childStyle"/>
+
+        <!-- 公共 -->
+        <attr name="layout_widthDesign"/>
+        <attr name="layout_heightDesign"/>
+        <attr name="layout_defWidth"/>
+
+        <attr name="layout_widthExt"/>
+        <attr name="layout_heightExt"/>
+
+        <attr name="layout_marginExt"/>
+        <attr name="layout_marginLeftExt"/>
+        <attr name="layout_marginTopExt"/>
+        <attr name="layout_marginRightExt"/>
+        <attr name="layout_marginBottomExt"/>
+        <attr name="layout_marginStartExt"/>
+        <attr name="layout_marginEndExt"/>
+
+        <attr name="paddingExt"/>
+        <attr name="paddingTopExt"/>
+        <attr name="paddingBottomExt"/>
+        <attr name="paddingLeftExt"/>
+        <attr name="paddingRightExt"/>
+
+        <attr name="maxWidthExt"/>
+        <attr name="maxHeightExt"/>
+        <attr name="minWidthExt"/>
+        <attr name="minHeightExt"/>
+
+    </declare-styleable>
+    <declare-styleable name="TextView">
+
+        <!-- 私有 -->
+        <attr name="textSizeExt"/>
+
+        <!-- 公共 -->
+        <attr name="layout_widthDesign"/>
+        <attr name="layout_heightDesign"/>
+        <attr name="layout_defWidth"/>
+
+        <attr name="layout_widthExt"/>
+        <attr name="layout_heightExt"/>
+
+        <attr name="layout_marginExt"/>
+        <attr name="layout_marginLeftExt"/>
+        <attr name="layout_marginTopExt"/>
+        <attr name="layout_marginRightExt"/>
+        <attr name="layout_marginBottomExt"/>
+        <attr name="layout_marginStartExt"/>
+        <attr name="layout_marginEndExt"/>
+
+        <attr name="paddingExt"/>
+        <attr name="paddingTopExt"/>
+        <attr name="paddingBottomExt"/>
+        <attr name="paddingLeftExt"/>
+        <attr name="paddingRightExt"/>
+
+        <attr name="maxWidthExt"/>
+        <attr name="maxHeightExt"/>
+        <attr name="minWidthExt"/>
+        <attr name="minHeightExt"/>
+
+    </declare-styleable>
+    <declare-styleable name="ImageView">
+
+        <!-- 公共 -->
+        <attr name="layout_widthDesign"/>
+        <attr name="layout_heightDesign"/>
+        <attr name="layout_defWidth"/>
+
+        <attr name="layout_widthExt"/>
+        <attr name="layout_heightExt"/>
+
+        <attr name="layout_marginExt"/>
+        <attr name="layout_marginLeftExt"/>
+        <attr name="layout_marginTopExt"/>
+        <attr name="layout_marginRightExt"/>
+        <attr name="layout_marginBottomExt"/>
+        <attr name="layout_marginStartExt"/>
+        <attr name="layout_marginEndExt"/>
+
+        <attr name="paddingExt"/>
+        <attr name="paddingTopExt"/>
+        <attr name="paddingBottomExt"/>
+        <attr name="paddingLeftExt"/>
+        <attr name="paddingRightExt"/>
+
+        <attr name="maxWidthExt"/>
+        <attr name="maxHeightExt"/>
+        <attr name="minWidthExt"/>
+        <attr name="minHeightExt"/>
+    </declare-styleable>
+    <declare-styleable name="ProgressBar">
+
+        <!-- 公共 -->
+        <attr name="layout_widthDesign"/>
+        <attr name="layout_heightDesign"/>
+        <attr name="layout_defWidth"/>
+
+        <attr name="layout_widthExt"/>
+        <attr name="layout_heightExt"/>
+
+        <attr name="layout_marginExt"/>
+        <attr name="layout_marginLeftExt"/>
+        <attr name="layout_marginTopExt"/>
+        <attr name="layout_marginRightExt"/>
+        <attr name="layout_marginBottomExt"/>
+        <attr name="layout_marginStartExt"/>
+        <attr name="layout_marginEndExt"/>
+
+        <attr name="paddingExt"/>
+        <attr name="paddingTopExt"/>
+        <attr name="paddingBottomExt"/>
+        <attr name="paddingLeftExt"/>
+        <attr name="paddingRightExt"/>
+
+        <attr name="maxWidthExt"/>
+        <attr name="maxHeightExt"/>
+        <attr name="minWidthExt"/>
+        <attr name="minHeightExt"/>
+    </declare-styleable>
+    <declare-styleable name="SurfaceView">
+
+        <!-- 公共 -->
+        <attr name="layout_widthDesign"/>
+        <attr name="layout_heightDesign"/>
+        <attr name="layout_defWidth"/>
+
+        <attr name="layout_widthExt"/>
+        <attr name="layout_heightExt"/>
+
+        <attr name="layout_marginExt"/>
+        <attr name="layout_marginLeftExt"/>
+        <attr name="layout_marginTopExt"/>
+        <attr name="layout_marginRightExt"/>
+        <attr name="layout_marginBottomExt"/>
+        <attr name="layout_marginStartExt"/>
+        <attr name="layout_marginEndExt"/>
+
+        <attr name="paddingExt"/>
+        <attr name="paddingTopExt"/>
+        <attr name="paddingBottomExt"/>
+        <attr name="paddingLeftExt"/>
+        <attr name="paddingRightExt"/>
+
+        <attr name="maxWidthExt"/>
+        <attr name="maxHeightExt"/>
+        <attr name="minWidthExt"/>
+        <attr name="minHeightExt"/>
+    </declare-styleable>
+    <declare-styleable name="Space">
+
+        <!-- 公共 -->
+        <attr name="layout_widthDesign"/>
+        <attr name="layout_heightDesign"/>
+        <attr name="layout_defWidth"/>
+
+        <attr name="layout_widthExt"/>
+        <attr name="layout_heightExt"/>
+
+        <attr name="layout_marginExt"/>
+        <attr name="layout_marginLeftExt"/>
+        <attr name="layout_marginTopExt"/>
+        <attr name="layout_marginRightExt"/>
+        <attr name="layout_marginBottomExt"/>
+        <attr name="layout_marginStartExt"/>
+        <attr name="layout_marginEndExt"/>
+
+        <attr name="paddingExt"/>
+        <attr name="paddingTopExt"/>
+        <attr name="paddingBottomExt"/>
+        <attr name="paddingLeftExt"/>
+        <attr name="paddingRightExt"/>
+
+        <attr name="maxWidthExt"/>
+        <attr name="maxHeightExt"/>
+        <attr name="minWidthExt"/>
+        <attr name="minHeightExt"/>
     </declare-styleable>
 
 </resources>

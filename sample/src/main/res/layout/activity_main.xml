@@ -20,36 +20,36 @@
             android:background="#666"
             android:textColor="@android:color/white"
             android:text="Design Width 320  Height 568 TextSize 16a"
-            app:layout_textSizeUniversal="16a"/>
+            app:textSizeExt="16a"/>
 
 
         <Button
             android:id="@+id/auto_screen"
             android:text="Auto Screen Sample \n Width 160aw Height 80ah"
             style="@style/LayoutZeroZero"
-            app:layout_widthUniversal="160a"
-            app:layout_heightUniversal="80a"/>
+            app:layout_widthExt="160a"
+            app:layout_heightExt="80a"/>
 
         <Button
             android:id="@+id/percent_parent"
             android:text="Percent Parent Sample \n Width 50%w Height 20%h"
             style="@style/LayoutZeroZero"
-            app:layout_widthUniversal="50%"
-            app:layout_heightUniversal="20%"/>
+            app:layout_widthExt="50%"
+            app:layout_heightExt="20%"/>
 
         <Button
             android:id="@+id/percent_screen"
             android:text="Percent Screen Sample \n Width 50%sw Height 20%sh"
             style="@style/LayoutZeroZero"
-            app:layout_widthUniversal="50%s"
-            app:layout_heightUniversal="20%s"/>
+            app:layout_widthExt="50%s"
+            app:layout_heightExt="20%s"/>
 
         <Button
             android:id="@+id/code_set"
             android:text="Code Set"
             style="@style/LayoutZeroZero"
-            app:layout_widthUniversal="80a"
-            app:layout_heightUniversal="40a"/>
+            app:layout_widthExt="80a"
+            app:layout_heightExt="40a"/>
 
         <Button
             android:id="@+id/code_set_2"

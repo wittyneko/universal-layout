@@ -466,7 +466,7 @@ public class UniversalLayoutHelper
 
     private static UniversalLayoutInfo setWidthAndHeightVal(TypedArray array, UniversalLayoutInfo info)
     {
-        UniversalLayoutInfo.UniversalVal universalVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_widthUniversal, true);
+        UniversalLayoutInfo.UniversalVal universalVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_widthExt, true);
         if (universalVal != null)
         {
             if (Log.isLoggable(TAG, Log.VERBOSE))
@@ -476,7 +476,7 @@ public class UniversalLayoutHelper
             info = checkForInfoExists(info);
             info.widthUniversal = universalVal;
         }
-        universalVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_heightUniversal, false);
+        universalVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_heightExt, false);
 
         if (universalVal != null)
         {
@@ -494,7 +494,7 @@ public class UniversalLayoutHelper
     private static UniversalLayoutInfo setTextSizeSupportVal(TypedArray array, UniversalLayoutInfo info)
     {
         //textSizeUniversal 默认以宽度作为基准
-        UniversalLayoutInfo.UniversalVal universalVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_textSizeUniversal, true);
+        UniversalLayoutInfo.UniversalVal universalVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_textSizeExt, true);
         if (universalVal != null)
         {
             if (Log.isLoggable(TAG, Log.VERBOSE))
@@ -512,7 +512,7 @@ public class UniversalLayoutHelper
     {
         //maxWidth
         UniversalLayoutInfo.UniversalVal universalVal = getUniversalVal(array,
-                R.styleable.UniversalLayoutInfo_layout_maxWidthUniversal,
+                R.styleable.UniversalLayoutInfo_maxWidthExt,
                 true);
         if (universalVal != null)
         {
@@ -521,7 +521,7 @@ public class UniversalLayoutHelper
         }
         //maxHeight
         universalVal = getUniversalVal(array,
-                R.styleable.UniversalLayoutInfo_layout_maxHeightUniversal,
+                R.styleable.UniversalLayoutInfo_maxHeightExt,
                 false);
         if (universalVal != null)
         {
@@ -530,7 +530,7 @@ public class UniversalLayoutHelper
         }
         //minWidth
         universalVal = getUniversalVal(array,
-                R.styleable.UniversalLayoutInfo_layout_minWidthUniversal,
+                R.styleable.UniversalLayoutInfo_minWidthExt,
                 true);
         if (universalVal != null)
         {
@@ -539,7 +539,7 @@ public class UniversalLayoutHelper
         }
         //minHeight
         universalVal = getUniversalVal(array,
-                R.styleable.UniversalLayoutInfo_layout_minHeightUniversal,
+                R.styleable.UniversalLayoutInfo_minHeightExt,
                 false);
         if (universalVal != null)
         {
@@ -555,7 +555,7 @@ public class UniversalLayoutHelper
         //默认margin参考宽度
         UniversalLayoutInfo.UniversalVal universalVal =
                 getUniversalVal(array,
-                        R.styleable.UniversalLayoutInfo_layout_marginUniversal,
+                        R.styleable.UniversalLayoutInfo_layout_marginExt,
                         true);
 
         if (universalVal != null)
@@ -571,7 +571,7 @@ public class UniversalLayoutHelper
             info.bottomMarginUniversal = universalVal;
         }
 
-        universalVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_marginLeftUniversal, true);
+        universalVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_marginLeftExt, true);
         if (universalVal != null)
         {
             if (Log.isLoggable(TAG, Log.VERBOSE))
@@ -582,7 +582,7 @@ public class UniversalLayoutHelper
             info.leftMarginUniversal = universalVal;
         }
 
-        universalVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_marginTopUniversal, false);
+        universalVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_marginTopExt, false);
         if (universalVal != null)
         {
             if (Log.isLoggable(TAG, Log.VERBOSE))
@@ -593,7 +593,7 @@ public class UniversalLayoutHelper
             info.topMarginUniversal = universalVal;
         }
 
-        universalVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_marginRightUniversal, true);
+        universalVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_marginRightExt, true);
         if (universalVal != null)
         {
             if (Log.isLoggable(TAG, Log.VERBOSE))
@@ -604,7 +604,7 @@ public class UniversalLayoutHelper
             info.rightMarginUniversal = universalVal;
         }
 
-        universalVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_marginBottomUniversal, false);
+        universalVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_marginBottomExt, false);
         if (universalVal != null)
         {
             if (Log.isLoggable(TAG, Log.VERBOSE))
@@ -614,7 +614,7 @@ public class UniversalLayoutHelper
             info = checkForInfoExists(info);
             info.bottomMarginUniversal = universalVal;
         }
-        universalVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_marginStartUniversal, true);
+        universalVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_marginStartExt, true);
         if (universalVal != null)
         {
             if (Log.isLoggable(TAG, Log.VERBOSE))
@@ -625,7 +625,7 @@ public class UniversalLayoutHelper
             info.startMarginUniversal = universalVal;
         }
 
-        universalVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_marginEndUniversal, true);
+        universalVal = getUniversalVal(array, R.styleable.UniversalLayoutInfo_layout_marginEndExt, true);
         if (universalVal != null)
         {
             if (Log.isLoggable(TAG, Log.VERBOSE))
@@ -649,7 +649,7 @@ public class UniversalLayoutHelper
     {
         //默认padding以宽度为标准
         UniversalLayoutInfo.UniversalVal universalVal = getUniversalVal(array,
-                R.styleable.UniversalLayoutInfo_layout_paddingUniversal,
+                R.styleable.UniversalLayoutInfo_paddingExt,
                 true);
         if (universalVal != null)
         {
@@ -662,7 +662,7 @@ public class UniversalLayoutHelper
 
 
         universalVal = getUniversalVal(array,
-                R.styleable.UniversalLayoutInfo_layout_paddingLeftUniversal,
+                R.styleable.UniversalLayoutInfo_paddingLeftExt,
                 true);
         if (universalVal != null)
         {
@@ -671,7 +671,7 @@ public class UniversalLayoutHelper
         }
 
         universalVal = getUniversalVal(array,
-                R.styleable.UniversalLayoutInfo_layout_paddingRightUniversal,
+                R.styleable.UniversalLayoutInfo_paddingRightExt,
                 true);
         if (universalVal != null)
         {
@@ -680,7 +680,7 @@ public class UniversalLayoutHelper
         }
 
         universalVal = getUniversalVal(array,
-                R.styleable.UniversalLayoutInfo_layout_paddingTopUniversal,
+                R.styleable.UniversalLayoutInfo_paddingTopExt,
                 true);
         if (universalVal != null)
         {
@@ -689,7 +689,7 @@ public class UniversalLayoutHelper
         }
 
         universalVal = getUniversalVal(array,
-                R.styleable.UniversalLayoutInfo_layout_paddingBottomUniversal,
+                R.styleable.UniversalLayoutInfo_paddingBottomExt,
                 true);
         if (universalVal != null)
         {
@@ -722,7 +722,7 @@ public class UniversalLayoutHelper
         return universalVal;
     }
 
-    private static final String REGEX_PERCENT = "^(([0-9]+)([.]([0-9]+))?|([.]([0-9]+))?)(%|a)([s]?[wh]?)$";
+    private static final String REGEX_PERCENT = "^(([0-9]+)([.]([0-9]+))?|([.]([0-9]+))?)((%|a)?(s|p|o)?(w|h)?)$";
 
     /**
      * 解析参数
@@ -747,6 +747,13 @@ public class UniversalLayoutHelper
         {
             throw new RuntimeException("the value of layout_xxxUniversal invalid! ==>" + percentStr);
         }
+
+        Log.e("group", "" + matcher.groupCount());
+        Log.e("group1", "" + matcher.group(1));
+        Log.e("group7", "" + matcher.group(7));
+        Log.e("group8", "" + matcher.group(8));
+        Log.e("group9", "" + matcher.group(9));
+        Log.e("group10", "" + matcher.group(10));
         int len = percentStr.length();
         //extract the float value
         String floatVal = matcher.group(1);

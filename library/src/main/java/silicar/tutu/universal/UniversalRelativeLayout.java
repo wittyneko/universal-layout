@@ -38,7 +38,7 @@ import android.widget.RelativeLayout;
  *     &lt;ImageView
  *         app:layout_widthUniversal="50%"
  *         app:layout_heightUniversal="50%"
- *         app:layout_marginTopUniversal="25%"
+ *         app:layout_marginTopExt="25%"
  *         app:layout_marginLeftUniversal="25%"/&gt
  * &lt;/android.support.percent.UniversalFrameLayout/&gt
  * </pre>
@@ -49,7 +49,7 @@ import android.widget.RelativeLayout;
  *     <li>{@code layout_heightUniversal}
  *     <li>{@code layout_marginUniversal}
  *     <li>{@code layout_marginLeftUniversal}
- *     <li>{@code layout_marginTopUniversal}
+ *     <li>{@code layout_marginTopExt}
  *     <li>{@code layout_marginRightUniversal}
  *     <li>{@code layout_marginBottomUniversal}
  *     <li>{@code layout_marginStartUniversal}

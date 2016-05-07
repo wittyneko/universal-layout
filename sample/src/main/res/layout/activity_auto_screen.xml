@@ -10,61 +10,61 @@
     <TextView
         style="@style/LayoutWrapWrap"
         android:textColor="@android:color/white"
-        app:layout_marginTopUniversal="5a"
+        app:layout_marginTopExt="5a"
         android:background="#666"
         android:text="Design Width 320  Height 568 TextSize 16aw Width 320a"
-        app:layout_textSizeUniversal="16a"
-        app:layout_widthUniversal="320a"/>
+        app:textSizeExt="16a"
+        app:layout_widthExt="320a"/>
 
     <TextView
         style="@style/Design640x1136"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/white"
-        app:layout_marginTopUniversal="5a"
+        app:layout_marginTopExt="5a"
         android:background="#666"
         android:text="Design Width 640  Height 1136 TextSize 16aw Width 320a"
-        app:layout_textSizeUniversal="16a"
-        app:layout_widthUniversal="320a"/>
+        app:textSizeExt="16a"
+        app:layout_widthExt="320a"/>
 
     <TextView
         style="@style/LayoutWrapWrap"
         android:textColor="@android:color/white"
-        app:layout_marginTopUniversal="5a"
+        app:layout_marginTopExt="5a"
         android:background="#666"
         android:text="Width 320aw  Height 25aw TextSize 16aw"
-        app:layout_textSizeUniversal="16a"
-        app:layout_widthUniversal="320a"
-        app:layout_heightUniversal="25aw"/>
+        app:textSizeExt="16a"
+        app:layout_widthExt="320a"
+        app:layout_heightExt="25aw"/>
 
     <TextView
         style="@style/LayoutWrapWrap"
-        app:layout_marginTopUniversal="5a"
+        app:layout_marginTopExt="5a"
         android:background="#666"
         android:textColor="@android:color/white"
         android:text="Width 320ah  Height 25ah TextSize 16ah"
-        app:layout_textSizeUniversal="16ah"
-        app:layout_widthUniversal="320ah"
-        app:layout_heightUniversal="25a"/>
+        app:textSizeExt="16ah"
+        app:layout_widthExt="320ah"
+        app:layout_heightExt="25a"/>
 
     <TextView
         style="@style/LayoutWrapWrap"
         android:textColor="@android:color/white"
-        app:layout_marginTopUniversal="5a"
+        app:layout_marginTopExt="5a"
         android:background="#666"
         android:text="Width 160aw  Height 60aw TextSize 16aw"
-        app:layout_textSizeUniversal="16a"
-        app:layout_widthUniversal="160a"
-        app:layout_heightUniversal="60aw"/>
+        app:textSizeExt="16a"
+        app:layout_widthExt="160a"
+        app:layout_heightExt="60aw"/>
 
     <TextView
         style="@style/LayoutWrapWrap"
-        app:layout_marginTopUniversal="5a"
+        app:layout_marginTopExt="5a"
         android:background="#666"
         android:textColor="@android:color/white"
         android:text="Width 160ah  Height 60ah TextSize 16ah"
-        app:layout_textSizeUniversal="16ah"
-        app:layout_widthUniversal="160ah"
-        app:layout_heightUniversal="60a"/>
+        app:textSizeExt="16ah"
+        app:layout_widthExt="160ah"
+        app:layout_heightExt="60a"/>
 
 </silicar.tutu.universal.UniversalLinearLayout>

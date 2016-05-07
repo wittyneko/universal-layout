@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="layout_widthDesign">640px</item>
+        <item name="layout_heightDesign">1136px</item>
     </style>
 
     <style name="Design640x1136">
