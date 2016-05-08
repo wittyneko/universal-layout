@@ -1,6 +1,8 @@
 package silicar.tutu.universal.helper.base;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
 
 /**
@@ -15,6 +17,13 @@ public class PercentScreenBase extends AbsPercentBase {
         private static PercentScreenBase instance = new PercentScreenBase(null, true);
     }
 
+    public static PercentScreenBase syncInstance(){
+        synchronized (PercentScreenBase.class) {
+            Holder.instance.isWidth = true;
+            return Holder.instance;
+        }
+    }
+
     public static PercentScreenBase getInstance(){
         Holder.instance.isWidth = true;
         return Holder.instance;
@@ -25,19 +34,20 @@ public class PercentScreenBase extends AbsPercentBase {
         return Holder.instance;
     }
 
-    public static PercentScreenBase getInstance(Context context, boolean isWidth){
+    public static PercentScreenBase getInstance(@Nullable Resources resources, boolean isWidth){
         Holder.instance.isWidth = isWidth;
-        Holder.instance.setContext(context);
+        Holder.instance.setResource(resources);
         return Holder.instance;
     }
 
     ///////// 类定义 //////////
 
-    private Context context;
+    //private Context context;
+    private Resources resources;
 
-    public PercentScreenBase(Context context, boolean isWidth){
+    public PercentScreenBase(@Nullable Resources resources, boolean isWidth){
         this(0, 0, isWidth);
-        setContext(context);
+        setResource(resources);
     }
 
     public PercentScreenBase(float widthValue, float heightValue, boolean isWidth) {
@@ -50,13 +60,11 @@ public class PercentScreenBase extends AbsPercentBase {
         return obj;
     }
 
-    public PercentScreenBase setContext(Context context) {
-        this.context = context;
-        if (context != null){
-            DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-            widthValue = displayMetrics.widthPixels;
-            heightValue = displayMetrics.heightPixels;
-        }
+    public PercentScreenBase setResource(@Nullable Resources resources) {
+        this.resources = resources;
+        DisplayBase displayBase = DisplayBase.getInstance(resources);
+        widthValue = displayBase.displayWidth;
+        heightValue = displayBase.displayHeight;
         return this;
     }
 }

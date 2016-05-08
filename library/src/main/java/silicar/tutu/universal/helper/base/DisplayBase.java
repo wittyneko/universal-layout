@@ -1,6 +1,8 @@
 package silicar.tutu.universal.helper.base;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
 
 /**
@@ -20,29 +22,28 @@ public class DisplayBase {
         return Holder.instance;
     }
 
-    public static DisplayBase getInstance(Context context){
-        if (Holder.instance.context != null)
-            return Holder.instance;
-        else if (context != null){
-            return Holder.instance.setContext(context);
+    public static DisplayBase getInstance(@Nullable Resources resources){
+        if (Holder.instance.resources == null && resources != null){
+            return Holder.instance.setResource(resources);
         }
-        return null;
+        return Holder.instance;
     }
 
     ///////// 类定义 //////////
 
-    private Context context;
+    //private Context context;
+    private Resources resources;
     public float displayWidth;
     public float displayHeight;
 
-    public DisplayBase(Context context) {
-        setContext(context);
+    public DisplayBase(@Nullable Resources resources) {
+        setResource(resources);
     }
 
-    public DisplayBase setContext(Context context) {
-        this.context = context;
-        if (context != null){
-            DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+    public DisplayBase setResource(@Nullable Resources resource) {
+        this.resources = resource;
+        if (resource != null){
+            DisplayMetrics displayMetrics = resource.getDisplayMetrics();
             displayWidth = displayMetrics.widthPixels;
             displayHeight = displayMetrics.heightPixels;
         }

@@ -13,6 +13,15 @@ public class PercentOwnBase extends AbsPercentBase {
         private static PercentOwnBase instance = new PercentOwnBase(true);
     }
 
+    public static PercentOwnBase syncInstance() {
+        synchronized (PercentOwnBase.class) {
+            Holder.instance.widthValue = 0f;
+            Holder.instance.heightValue = 0f;
+            Holder.instance.isWidth = true;
+            return Holder.instance;
+        }
+    }
+
     public static PercentOwnBase getInstance() {
         Holder.instance.widthValue = 0f;
         Holder.instance.heightValue = 0f;

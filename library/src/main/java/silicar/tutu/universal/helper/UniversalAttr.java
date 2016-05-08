@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.support.annotation.AttrRes;
 import android.support.annotation.StyleRes;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,22 +27,55 @@ public class UniversalAttr {
     private TypedArray mTypedArray;
     public DisplayBase displayBase;
 
+    public UniversalAttr(Context context) {
+        mContext = context;
+        displayBase = DisplayBase.getInstance(context.getResources());
+    }
+
     public UniversalAttr(Context context, @StyleRes int resId) {
         mContext = context;
-        displayBase = DisplayBase.getInstance(context);
-        mTypedArray = context.obtainStyledAttributes(resId, R.styleable.UniversalLayoutInfo);
+        displayBase = DisplayBase.getInstance(context.getResources());
+        //mTypedArray = context.obtainStyledAttributes(resId, R.styleable.UniversalLayoutInfo);
+        obtainStyledAttributes(resId);
     }
 
     public UniversalAttr(Context context, AttributeSet set,// @StyleableRes int[] attrs,
                          @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
         mContext = context;
-        displayBase = DisplayBase.getInstance(context);
-        mTypedArray = context.obtainStyledAttributes(set, R.styleable.UniversalLayoutInfo, defStyleAttr, defStyleRes);
+        displayBase = DisplayBase.getInstance(context.getResources());
+        //mTypedArray = context.obtainStyledAttributes(set, R.styleable.UniversalLayoutInfo, defStyleAttr, defStyleRes);
+        obtainStyledAttributes(set, defStyleAttr, defStyleRes);
     }
 
-    public void recycle(){
+    public void obtainStyledAttributes(@StyleRes int resId) {
+        if (mTypedArray != null)
+            recycle();
+        mTypedArray = mContext.obtainStyledAttributes(resId, R.styleable.UniversalLayoutInfo);
+    }
+
+    public void obtainStyledAttributes(AttributeSet set,// @StyleableRes int[] attrs,
+                                       @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+        if (mTypedArray != null)
+            recycle();
+        mTypedArray = mContext.obtainStyledAttributes(set, R.styleable.UniversalLayoutInfo, defStyleAttr, defStyleRes);
+    }
+
+    public void recycle() {
         mTypedArray.recycle();
         mTypedArray = null;
+    }
+
+    public UniversalLayoutInfo getUniversalLayoutInfo() {
+        UniversalLayoutInfo layoutInfo = new UniversalLayoutInfo();
+        getDesignSizeAttr(mTypedArray, layoutInfo);
+        isWidth(mTypedArray, layoutInfo);
+        getWidthHeightAttr(mTypedArray, layoutInfo);
+        getMarginAttr(mTypedArray, layoutInfo);
+        getPaddingAttr(mTypedArray, layoutInfo);
+        getMinMaxAttr(mTypedArray, layoutInfo);
+        getTextViewAttr(mTypedArray, layoutInfo);
+        recycle();
+        return layoutInfo;
     }
 
     /**
@@ -77,12 +109,51 @@ public class UniversalAttr {
      *
      * @param array
      * @param info
-     * @param defWidth
-     * @param defHeight
      * @return
      */
-    public UniversalLayoutInfo isWidth(TypedArray array, UniversalLayoutInfo info, float defWidth, float defHeight) {
+    public UniversalLayoutInfo isWidth(TypedArray array, UniversalLayoutInfo info) {
         info.isWidth = array.getBoolean(R.styleable.UniversalLayoutInfo_layout_defWidth, true);
+        return info;
+    }
+
+    ///////// 获取公共属性 /////////
+
+    public UniversalLayoutInfo getWidthHeightAttr(TypedArray array, UniversalLayoutInfo info) {
+        info.width = getUniversalValue(array, R.styleable.UniversalLayoutInfo_layout_widthExt, info.isWidth);
+        info.height = getUniversalValue(array, R.styleable.UniversalLayoutInfo_layout_heightExt, info.isWidth);
+        return info;
+    }
+
+    public UniversalLayoutInfo getMarginAttr(TypedArray array, UniversalLayoutInfo info) {
+        info.leftMargin = getUniversalValue(array, R.styleable.UniversalLayoutInfo_layout_marginLeftExt, info.isWidth);
+        info.rightMargin = getUniversalValue(array, R.styleable.UniversalLayoutInfo_layout_marginRightExt, info.isWidth);
+        info.topMargin = getUniversalValue(array, R.styleable.UniversalLayoutInfo_layout_marginTopExt, info.isWidth);
+        info.bottomMargin = getUniversalValue(array, R.styleable.UniversalLayoutInfo_layout_marginBottomExt, info.isWidth);
+        info.startMargin = getUniversalValue(array, R.styleable.UniversalLayoutInfo_layout_marginStartExt, info.isWidth);
+        info.endMargin = getUniversalValue(array, R.styleable.UniversalLayoutInfo_layout_marginEndExt, info.isWidth);
+        return info;
+    }
+
+    public UniversalLayoutInfo getPaddingAttr(TypedArray array, UniversalLayoutInfo info) {
+        info.paddingLeft = getUniversalValue(array, R.styleable.UniversalLayoutInfo_paddingLeftExt, info.isWidth);
+        info.paddingRight = getUniversalValue(array, R.styleable.UniversalLayoutInfo_paddingRightExt, info.isWidth);
+        info.paddingTop = getUniversalValue(array, R.styleable.UniversalLayoutInfo_paddingTopExt, info.isWidth);
+        info.paddingBottom = getUniversalValue(array, R.styleable.UniversalLayoutInfo_paddingBottomExt, info.isWidth);
+        return info;
+    }
+
+    public UniversalLayoutInfo getMinMaxAttr(TypedArray array, UniversalLayoutInfo info) {
+        info.maxWidth = getUniversalValue(array, R.styleable.UniversalLayoutInfo_maxWidthExt, info.isWidth);
+        info.maxHeight = getUniversalValue(array, R.styleable.UniversalLayoutInfo_maxWidthExt, info.isWidth);
+        info.minWidth = getUniversalValue(array, R.styleable.UniversalLayoutInfo_minWidthExt, info.isWidth);
+        info.minHeight = getUniversalValue(array, R.styleable.UniversalLayoutInfo_minHeightExt, info.isWidth);
+        return info;
+    }
+
+    ///////// 获取指定控件属性 /////////
+
+    public UniversalLayoutInfo getTextViewAttr(TypedArray array, UniversalLayoutInfo info) {
+        info.textSize = getUniversalValue(array, R.styleable.UniversalLayoutInfo_textSizeExt, info.isWidth);
         return info;
     }
 
