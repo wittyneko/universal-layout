@@ -11,6 +11,8 @@ public class UniversalLayoutInfo {
     public float widthDesign;
     public float heightDesign;
     public boolean isWidth;
+    public boolean usePadding;
+
     public UniversalValue width;
     public UniversalValue height;
 
@@ -47,6 +49,7 @@ public class UniversalLayoutInfo {
         widthDesign = 0;
         heightDesign = 0;
         isWidth = false;
+        usePadding = false;
 
         width = null;
         height = null;

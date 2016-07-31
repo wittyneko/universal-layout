@@ -61,7 +61,7 @@ import java.util.regex.Pattern;
  * pattern:
  * <pre class="prettyprint">
  * protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
- * mHelper.adjustChildren(widthMeasureSpec, heightMeasureSpec);
+ * mHelper.fillLayout(widthMeasureSpec, heightMeasureSpec);
  * super.onMeasure(widthMeasureSpec, heightMeasureSpec);
  * if (mHelper.handleMeasuredStateTooSmall()) {
  * super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -135,7 +135,7 @@ public class UniversalLayoutHelper
     {
         if (Log.isLoggable(TAG, Log.DEBUG))
         {
-            Log.d(TAG, "adjustChildren: " + mHost + " widthMeasureSpec: "
+            Log.d(TAG, "fillLayout: " + mHost + " widthMeasureSpec: "
                     + View.MeasureSpec.toString(widthMeasureSpec) + " heightMeasureSpec: "
                     + View.MeasureSpec.toString(heightMeasureSpec));
         }
@@ -311,8 +311,6 @@ public class UniversalLayoutHelper
     public void fillMarginLayoutParams(ViewGroup.MarginLayoutParams params, int widthHint,
                                        int heightHint, UniversalLayoutInfo info)
     {
-        fillLayoutParams(params, widthHint, heightHint, info);
-
         // Preserver the original margins, so we can restore them after the measure step.
         info.mPreservedParams.leftMargin = params.leftMargin;
         info.mPreservedParams.topMargin = params.topMargin;
@@ -355,6 +353,8 @@ public class UniversalLayoutHelper
             MarginLayoutParamsCompat.setMarginEnd(params,
                     (int) (base * info.endMarginUniversal.value));
         }
+
+        fillLayoutParams(params, widthHint, heightHint, info);
         if (Log.isLoggable(TAG, Log.DEBUG))
         {
             Log.d(TAG, "after fillMarginLayoutParams: (" + params.width + ", " + params.height
@@ -421,7 +421,7 @@ public class UniversalLayoutHelper
         params.height = info.mPreservedParams.height;
     }
 
-    ///////////// 赋值过程 /////////////
+    ///////////// 参数读取过程 /////////////
 
     /**
      * Constructs a UniversalLayoutInfo from attributes associated with a View. Call this method from

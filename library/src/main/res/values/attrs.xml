@@ -10,6 +10,7 @@
         <attr name="layout_widthDesign" format="dimension"/>
         <attr name="layout_heightDesign" format="dimension"/>
         <attr name="layout_defWidth" format="boolean"/>
+        <attr name="layout_usePadding" format="boolean"/>
 
         <attr name="layout_widthExt" format="string"/>
         <attr name="layout_heightExt" format="string"/>
@@ -47,6 +48,7 @@
         <attr name="layout_widthDesign"/>
         <attr name="layout_heightDesign"/>
         <attr name="layout_defWidth"/>
+        <attr name="layout_usePadding"/>
 
         <attr name="layout_widthExt"/>
         <attr name="layout_heightExt"/>
@@ -80,6 +82,7 @@
         <attr name="layout_widthDesign"/>
         <attr name="layout_heightDesign"/>
         <attr name="layout_defWidth"/>
+        <attr name="layout_usePadding"/>
 
         <attr name="layout_widthExt"/>
         <attr name="layout_heightExt"/>
@@ -110,6 +113,7 @@
         <attr name="layout_widthDesign"/>
         <attr name="layout_heightDesign"/>
         <attr name="layout_defWidth"/>
+        <attr name="layout_usePadding"/>
 
         <attr name="layout_widthExt"/>
         <attr name="layout_heightExt"/>
@@ -139,6 +143,7 @@
         <attr name="layout_widthDesign"/>
         <attr name="layout_heightDesign"/>
         <attr name="layout_defWidth"/>
+        <attr name="layout_usePadding"/>
 
         <attr name="layout_widthExt"/>
         <attr name="layout_heightExt"/>
@@ -168,6 +173,7 @@
         <attr name="layout_widthDesign"/>
         <attr name="layout_heightDesign"/>
         <attr name="layout_defWidth"/>
+        <attr name="layout_usePadding"/>
 
         <attr name="layout_widthExt"/>
         <attr name="layout_heightExt"/>
@@ -197,6 +203,7 @@
         <attr name="layout_widthDesign"/>
         <attr name="layout_heightDesign"/>
         <attr name="layout_defWidth"/>
+        <attr name="layout_usePadding"/>
 
         <attr name="layout_widthExt"/>
         <attr name="layout_heightExt"/>

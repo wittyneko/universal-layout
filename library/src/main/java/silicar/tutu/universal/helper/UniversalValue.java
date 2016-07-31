@@ -1,6 +1,6 @@
 package silicar.tutu.universal.helper;
 
-import silicar.tutu.universal.helper.base.IBase;
+import silicar.tutu.universal.helper.base.BaseModel;
 
 /**
  * 参数信息
@@ -8,13 +8,17 @@ import silicar.tutu.universal.helper.base.IBase;
  */
 public class UniversalValue {
     public float value;
-    public IBase base;
+    public BaseModel model;
 
     public UniversalValue() {
     }
 
-    public UniversalValue(float value, IBase base) {
+    public UniversalValue(float value, BaseModel model) {
         this.value = value;
-        this.base = base;
+        this.model = model;
+    }
+
+    public float getMeasureValue() {
+        return value * model.getBaseValue();
     }
 }

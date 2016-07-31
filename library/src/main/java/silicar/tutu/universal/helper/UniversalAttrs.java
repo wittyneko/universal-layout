@@ -10,39 +10,39 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import silicar.tutu.universal.R;
-import silicar.tutu.universal.helper.base.DisplayBase;
-import silicar.tutu.universal.helper.base.IBase;
-import silicar.tutu.universal.helper.base.SampleBase;
+import silicar.tutu.universal.helper.base.BaseDisplay;
+import silicar.tutu.universal.helper.base.BaseModel;
+import silicar.tutu.universal.helper.base.SampleModel;
 
 /**
  * 参数读取解析
  * Created by Brady on 2016/5/2.
  */
-public class UniversalAttr {
+public class UniversalAttrs {
 
     private static final String REGEX_UNIVERSAL = "^(([0-9]+)([.]([0-9]+))?|([.]([0-9]+))?)((%|a)?(s|p|o)?(w|h)?)$";
     //private static final String REGEX_VALUE = "^(([0-9]+)([.]([0-9]+))?|([.]([0-9]+))?)";
     //private static final String REGEX_BASE = "([%a]?[spo]?[wh]?)$";
     private Context mContext;
     private TypedArray mTypedArray;
-    public DisplayBase displayBase;
+    private BaseDisplay mDisplay;
 
-    public UniversalAttr(Context context) {
+    public UniversalAttrs(Context context, BaseDisplay display) {
         mContext = context;
-        displayBase = DisplayBase.getInstance(context.getResources());
+        mDisplay = display;
     }
 
-    public UniversalAttr(Context context, @StyleRes int resId) {
+    public UniversalAttrs(Context context, BaseDisplay display, @StyleRes int resId) {
         mContext = context;
-        displayBase = DisplayBase.getInstance(context.getResources());
+        mDisplay = display;
         //mTypedArray = context.obtainStyledAttributes(resId, R.styleable.UniversalLayoutInfo);
         obtainStyledAttributes(resId);
     }
 
-    public UniversalAttr(Context context, AttributeSet set,// @StyleableRes int[] attrs,
-                         @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+    public UniversalAttrs(Context context, BaseDisplay display, AttributeSet set,// @StyleableRes int[] attrs,
+                          @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
         mContext = context;
-        displayBase = DisplayBase.getInstance(context.getResources());
+        mDisplay = display;
         //mTypedArray = context.obtainStyledAttributes(set, R.styleable.UniversalLayoutInfo, defStyleAttr, defStyleRes);
         obtainStyledAttributes(set, defStyleAttr, defStyleRes);
     }
@@ -68,7 +68,7 @@ public class UniversalAttr {
     public UniversalLayoutInfo getUniversalLayoutInfo() {
         UniversalLayoutInfo layoutInfo = new UniversalLayoutInfo();
         getDesignSizeAttr(mTypedArray, layoutInfo);
-        isWidth(mTypedArray, layoutInfo);
+        getDefault(mTypedArray, layoutInfo);
         getWidthHeightAttr(mTypedArray, layoutInfo);
         getMarginAttr(mTypedArray, layoutInfo);
         getPaddingAttr(mTypedArray, layoutInfo);
@@ -78,6 +78,8 @@ public class UniversalAttr {
         return layoutInfo;
     }
 
+    ///////// 获取基础属性 /////////
+
     /**
      * 获取设计稿尺寸
      *
@@ -86,7 +88,7 @@ public class UniversalAttr {
      * @return
      */
     public UniversalLayoutInfo getDesignSizeAttr(TypedArray array, UniversalLayoutInfo info) {
-        return getDesignSizeAttr(array, info, displayBase.displayWidth, displayBase.displayHeight);
+        return getDesignSizeAttr(array, info, mDisplay.getDisplayWidth(), mDisplay.getDisplayHeight());
     }
 
     /**
@@ -105,14 +107,17 @@ public class UniversalAttr {
     }
 
     /**
-     * 是否以宽度为参照值
+     * 获取默认参数
      *
      * @param array
      * @param info
      * @return
      */
-    public UniversalLayoutInfo isWidth(TypedArray array, UniversalLayoutInfo info) {
+    public UniversalLayoutInfo getDefault(TypedArray array, UniversalLayoutInfo info) {
+        //是否以宽度为参照值
         info.isWidth = array.getBoolean(R.styleable.UniversalLayoutInfo_layout_defWidth, true);
+        //是否使用父控件padding值
+        info.usePadding = array.getBoolean(R.styleable.UniversalLayoutInfo_layout_usePadding, false);
         return info;
     }
 
@@ -193,40 +198,40 @@ public class UniversalAttr {
         int len = universalStr.length();
         //extract the float value
         String valueStr = matcher.group(1);
-        //String base = matcher.group(7);
+        //String model = matcher.group(7);
         String baseModeStr = matcher.group(8);
         String baseObjStr = matcher.group(9);
         String baseIsWidthStr = matcher.group(10);
 
         UniversalValue universalVal = new UniversalValue();
-        SampleBase sampleBase = new SampleBase();
+        SampleModel sampleModel = new SampleModel();
         float value = Float.parseFloat(valueStr);
 
         // 计算模式
-        if (baseModeStr == null || baseModeStr.equals(IBase.MODE_AUTO)) {
-            sampleBase.setMode(IBase.modeAuto);
+        if (baseModeStr == null || baseModeStr.equals(BaseModel.MODE_AUTO)) {
+            sampleModel.setMode(BaseModel.modeAuto);
         } else {
-            sampleBase.setMode(IBase.modePercent);
+            sampleModel.setMode(BaseModel.modePercent);
             value /= 100f;
         }
 
         // 参照对象
-        if (baseObjStr == null || baseObjStr.equals(IBase.OBJ_SCREEN)) {
-            sampleBase.setObj(IBase.objScreen);
-        } else if (baseObjStr.equals(IBase.OBJ_PARENT)) {
-            sampleBase.setObj(IBase.objParent);
+        if (baseObjStr == null || baseObjStr.equals(BaseModel.OBJ_SCREEN)) {
+            sampleModel.setObj(BaseModel.objScreen);
+        } else if (baseObjStr.equals(BaseModel.OBJ_PARENT)) {
+            sampleModel.setObj(BaseModel.objParent);
         } else {
-            sampleBase.setObj(IBase.objOwn);
+            sampleModel.setObj(BaseModel.objOwn);
         }
 
         // 参照值
-        if (baseIsWidthStr == null || baseIsWidthStr.equals(IBase.WIDTH) || isWidth) {
-            sampleBase.setWidth(true);
+        if (baseIsWidthStr == null || baseIsWidthStr.equals(BaseModel.WIDTH) || isWidth) {
+            sampleModel.defWidth(true);
         } else {
-            sampleBase.setWidth(false);
+            sampleModel.defWidth(false);
         }
         universalVal.value = value;
-        universalVal.base = sampleBase;
+        universalVal.model = sampleModel;
 
         return universalVal;
     }
