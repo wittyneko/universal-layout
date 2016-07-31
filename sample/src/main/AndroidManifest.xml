@@ -16,7 +16,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".AutoScreenActivity" />
-        <activity android:name=".PercentScreenActivity" />
         <activity android:name=".PercentActivity"></activity>
     </application>
 

@@ -130,20 +130,32 @@ public class UniversalAttrs {
     }
 
     public UniversalLayoutInfo getMarginAttr(TypedArray array, UniversalLayoutInfo info) {
-        info.leftMargin = getUniversalValue(array, R.styleable.UniversalLayoutInfo_layout_marginLeftExt, info.isWidth);
-        info.rightMargin = getUniversalValue(array, R.styleable.UniversalLayoutInfo_layout_marginRightExt, info.isWidth);
-        info.topMargin = getUniversalValue(array, R.styleable.UniversalLayoutInfo_layout_marginTopExt, info.isWidth);
-        info.bottomMargin = getUniversalValue(array, R.styleable.UniversalLayoutInfo_layout_marginBottomExt, info.isWidth);
-        info.startMargin = getUniversalValue(array, R.styleable.UniversalLayoutInfo_layout_marginStartExt, info.isWidth);
-        info.endMargin = getUniversalValue(array, R.styleable.UniversalLayoutInfo_layout_marginEndExt, info.isWidth);
+        //先解读公共margin
+        info.leftMargin = getUniversalValue(array, R.styleable.UniversalLayoutInfo_layout_marginExt, info.isWidth);
+        info.rightMargin = getUniversalValue(array, R.styleable.UniversalLayoutInfo_layout_marginExt, info.isWidth);
+        info.topMargin = getUniversalValue(array, R.styleable.UniversalLayoutInfo_layout_marginExt, info.isWidth);
+        info.bottomMargin = getUniversalValue(array, R.styleable.UniversalLayoutInfo_layout_marginExt, info.isWidth);
+        //存在个别属性，使用新属性
+        info.leftMargin = getUniversalValue(info.leftMargin, getUniversalValue(array, R.styleable.UniversalLayoutInfo_layout_marginLeftExt, info.isWidth));
+        info.rightMargin = getUniversalValue(info.rightMargin, getUniversalValue(array, R.styleable.UniversalLayoutInfo_layout_marginRightExt, info.isWidth));
+        info.topMargin = getUniversalValue(info.topMargin, getUniversalValue(array, R.styleable.UniversalLayoutInfo_layout_marginTopExt, info.isWidth));
+        info.bottomMargin = getUniversalValue(info.bottomMargin, getUniversalValue(array, R.styleable.UniversalLayoutInfo_layout_marginBottomExt, info.isWidth));
+        info.startMargin = getUniversalValue(info.startMargin, getUniversalValue(array, R.styleable.UniversalLayoutInfo_layout_marginStartExt, info.isWidth));
+        info.endMargin = getUniversalValue(info.endMargin, getUniversalValue(array, R.styleable.UniversalLayoutInfo_layout_marginEndExt, info.isWidth));
         return info;
     }
 
     public UniversalLayoutInfo getPaddingAttr(TypedArray array, UniversalLayoutInfo info) {
-        info.paddingLeft = getUniversalValue(array, R.styleable.UniversalLayoutInfo_paddingLeftExt, info.isWidth);
-        info.paddingRight = getUniversalValue(array, R.styleable.UniversalLayoutInfo_paddingRightExt, info.isWidth);
-        info.paddingTop = getUniversalValue(array, R.styleable.UniversalLayoutInfo_paddingTopExt, info.isWidth);
-        info.paddingBottom = getUniversalValue(array, R.styleable.UniversalLayoutInfo_paddingBottomExt, info.isWidth);
+        //先读取公共padding
+        info.paddingLeft = getUniversalValue(array, R.styleable.UniversalLayoutInfo_paddingExt, info.isWidth);
+        info.paddingRight = getUniversalValue(array, R.styleable.UniversalLayoutInfo_paddingExt, info.isWidth);
+        info.paddingTop = getUniversalValue(array, R.styleable.UniversalLayoutInfo_paddingExt, info.isWidth);
+        info.paddingBottom = getUniversalValue(array, R.styleable.UniversalLayoutInfo_paddingExt, info.isWidth);
+        //存在个别属性，使用新属性
+        info.paddingLeft = getUniversalValue(info.paddingLeft, getUniversalValue(array, R.styleable.UniversalLayoutInfo_paddingLeftExt, info.isWidth));
+        info.paddingRight = getUniversalValue(info.paddingRight, getUniversalValue(array, R.styleable.UniversalLayoutInfo_paddingRightExt, info.isWidth));
+        info.paddingTop = getUniversalValue(info.paddingTop, getUniversalValue(array, R.styleable.UniversalLayoutInfo_paddingTopExt, info.isWidth));
+        info.paddingBottom = getUniversalValue(info.paddingBottom, getUniversalValue(array, R.styleable.UniversalLayoutInfo_paddingBottomExt, info.isWidth));
         return info;
     }
 
@@ -160,6 +172,13 @@ public class UniversalAttrs {
     public UniversalLayoutInfo getTextViewAttr(TypedArray array, UniversalLayoutInfo info) {
         info.textSize = getUniversalValue(array, R.styleable.UniversalLayoutInfo_textSizeExt, info.isWidth);
         return info;
+    }
+
+    public UniversalValue getUniversalValue(UniversalValue oldValue, UniversalValue newValue){
+        if (newValue != null)
+            return newValue;
+        else
+            return oldValue;
     }
 
     /**
@@ -225,10 +244,13 @@ public class UniversalAttrs {
         }
 
         // 参照值
-        if (baseIsWidthStr == null || baseIsWidthStr.equals(BaseModel.WIDTH) || isWidth) {
-            sampleModel.defWidth(true);
+        if (baseIsWidthStr == null) {
+            sampleModel.defWidth(isWidth);
         } else {
-            sampleModel.defWidth(false);
+            if (baseIsWidthStr.equals(BaseModel.WIDTH))
+                sampleModel.defWidth(true);
+            else
+                sampleModel.defWidth(false);
         }
         universalVal.value = value;
         universalVal.model = sampleModel;

@@ -7,8 +7,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import silicar.tutu.universal.UniversalLayoutHelper.UniversalLayoutInfo;
-import silicar.tutu.universal.UniversalLinearLayout;
+import silicar.tutu.universal.helper.UniversalDimens;
+import silicar.tutu.universal.helper.UniversalLayoutHelper;
+import silicar.tutu.universal.helper.UniversalLayoutInfo;
+import silicar.tutu.universal.helper.UniversalValue;
+import silicar.tutu.universal.helper.base.BaseModel;
+import silicar.tutu.universal.helper.base.SampleModel;
+import silicar.tutu.universal.widget.UniversalLinearLayout;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -21,7 +26,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         findViewById(R.id.auto_screen).setOnClickListener(this);
         findViewById(R.id.percent_parent).setOnClickListener(this);
-        findViewById(R.id.percent_screen).setOnClickListener(this);
         codeView = findViewById(R.id.code_set);
         codeView2 = findViewById(R.id.code_set_2);
         codeView.setOnClickListener(this);
@@ -49,25 +53,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.percent_parent:
                 intent = new Intent(this, PercentActivity.class);
                 break;
-            case R.id.percent_screen:
-                intent = new Intent(this, PercentScreenActivity.class);
-                break;
             case R.id.code_set:
                 UniversalLinearLayout.LayoutParams params = (UniversalLinearLayout.LayoutParams) codeView.getLayoutParams();
                 UniversalLayoutInfo info = params.getUniversalLayoutInfo();
-                info.widthUniversal.value = 0.8f;
-                info.widthUniversal.basemode = UniversalLayoutInfo.BaseMode.PERCENT_WIDTH;
-                info.heightUniversal.value = 50;
+                info.width.value = 0.8f;
+                //SampleModel model = (SampleModel) info.width.model;
+                //model.setMode(BaseModel.modePercent).setObj(BaseModel.objScreen);
+                info.width.model = new SampleModel(BaseModel.modePercent, BaseModel.objScreen, true);
+                info.height.value = 50;
                 codeView.requestLayout();
                 break;
             case R.id.code_set_2:
-                UniversalLayoutInfo info2 = new UniversalLayoutInfo();
-                info2.widthDesign = 640;
-                info2.heightDesign = 1136;
-                info2.widthUniversal = new UniversalLayoutInfo.UniversalVal(320, UniversalLayoutInfo.BaseMode.AUTO_WIDTH);
-                info2.heightUniversal = new UniversalLayoutInfo.UniversalVal(100, UniversalLayoutInfo.BaseMode.AUTO_WIDTH);
-                codeView2.getLayoutParams().width = info2.getUniversalSize(info2, info2.widthUniversal);
-                codeView2.getLayoutParams().height = info2.getUniversalSize(info2, info2.heightUniversal);
+                UniversalValue universalValue = new UniversalValue(300, new SampleModel().getDefaultDesign());
+                codeView2.getLayoutParams().width = (int) UniversalDimens.getUniversalDimens(universalValue, UniversalLayoutHelper.getDisplay());
+                codeView2.getLayoutParams().height = (int) UniversalDimens.getUniversalDimens(universalValue, UniversalLayoutHelper.getDisplay());
                 codeView2.requestLayout();
                 break;
             default:

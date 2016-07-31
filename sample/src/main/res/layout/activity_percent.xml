@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<silicar.tutu.universal.UniversalLinearLayout
+<silicar.tutu.universal.widget.UniversalLinearLayout
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     
-    <silicar.tutu.universal.UniversalLinearLayout
+    <silicar.tutu.universal.widget.UniversalLinearLayout
         android:orientation="vertical"
         android:background="#aaa"
         android:layout_width="match_parent"
@@ -19,7 +19,16 @@
             android:textColor="@android:color/white"
             app:layout_marginTopExt="1%"
             android:background="#666"
-            android:text="Parent Margin 5% TextSize 5% Width 100%"
+            android:text="Parent TextSize 5% Width 100% Height wrap"
+            app:textSizeExt="5%p"
+            app:layout_widthExt="100%p"/>
+
+        <TextView
+            style="@style/LayoutWrapWrap"
+            android:textColor="@android:color/white"
+            app:layout_marginTopExt="1%"
+            android:background="#666"
+            android:text="Display TextSize 5% Width 100% Height wrap"
             app:textSizeExt="5%"
             app:layout_widthExt="100%"/>
 
@@ -28,41 +37,41 @@
             android:textColor="@android:color/white"
             app:layout_marginTopExt="1%"
             android:background="#666"
-            android:text="Width 100%w  Height 8%w TextSize 5%w"
-            app:textSizeExt="5%"
-            app:layout_widthExt="100%"
-            app:layout_heightExt="8%w"/>
+            android:text="Parent Width 50%  Height 20% TextSize 5%"
+            app:textSizeExt="5%p"
+            app:layout_widthExt="50%p"
+            app:layout_heightExt="20%p"/>
 
         <TextView
             style="@style/LayoutWrapWrap"
             app:layout_marginTopExt="1%"
             android:background="#666"
             android:textColor="@android:color/white"
-            android:text="Width 100%h  Height 8%h TextSize 5%h"
-            app:textSizeExt="5%h"
-            app:layout_widthExt="100%h"
-            app:layout_heightExt="8%"/>
-
-        <TextView
-            style="@style/LayoutWrapWrap"
-            android:textColor="@android:color/white"
-            app:layout_marginTopExt="1%"
-            android:background="#666"
-            android:text="Width 50%w  Height 15%w TextSize 5%w"
+            android:text="Display Width 50%  Height 20% TextSize 5%"
             app:textSizeExt="5%"
             app:layout_widthExt="50%"
-            app:layout_heightExt="15%w"/>
+            app:layout_heightExt="20%"/>
 
         <TextView
             style="@style/LayoutWrapWrap"
             app:layout_marginTopExt="1%"
             android:background="#666"
             android:textColor="@android:color/white"
-            android:text="Width 50%h  Height 15%h TextSize 5%h"
+            android:text="Parent Width 50%h Height 20%h TextSize 5%h"
+            app:textSizeExt="5%ph"
+            app:layout_widthExt="50%ph"
+            app:layout_heightExt="20%ph"/>
+
+        <TextView
+            style="@style/LayoutWrapWrap"
+            app:layout_marginTopExt="1%"
+            android:background="#666"
+            android:textColor="@android:color/white"
+            android:text="Display Width 50%h Height 20%h TextSize 5%h"
             app:textSizeExt="5%h"
             app:layout_widthExt="50%h"
-            app:layout_heightExt="15%"/>
+            app:layout_heightExt="20%h"/>
         
-    </silicar.tutu.universal.UniversalLinearLayout>
+    </silicar.tutu.universal.widget.UniversalLinearLayout>
 
-</silicar.tutu.universal.UniversalLinearLayout>
+</silicar.tutu.universal.widget.UniversalLinearLayout>

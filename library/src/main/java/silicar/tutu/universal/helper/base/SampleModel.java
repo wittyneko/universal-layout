@@ -1,5 +1,7 @@
 package silicar.tutu.universal.helper.base;
 
+import silicar.tutu.universal.helper.UniversalLayoutHelper;
+
 /**
  * 获取参数样本
  * Created by Brady on 2016/5/4.
@@ -107,6 +109,12 @@ public class SampleModel implements BaseModel{
 
     public SampleModel setDesignHeight(float designHeight) {
         this.designHeight = designHeight;
+        return this;
+    }
+
+    public SampleModel getDefaultDesign(){
+        designWidth = UniversalLayoutHelper.getDisplay().getDisplayWidth();
+        designHeight = UniversalLayoutHelper.getDisplay().getDisplayHeight();
         return this;
     }
 }

@@ -12,12 +12,7 @@
 2. 在项目的build.gradle添加dependencies
 	```gradle
 	dependencies {
-		compile 'com.github.brady9308:sic-universal-layout:1.0.1'
-		//v7包引用冲突可以这样去掉
-		//compile 'com.android.support:appcompat-v7:23.1.1'
-		//compile ('com.github.brady9308:sic-universal-layout:1.0.1'){
-		//	exclude module:'appcompat-v7'
-		//}
+		compile 'com.github.brady9308:universal-layout:1.1.0'
 	}
 	
 	```
@@ -39,7 +34,7 @@
     初始版本
     ```
 
-## UniversalLayout 的使用之AutoLayout
+## UniversalLayout 的使用之自动适配
 
 1. 定义一个Style样式存放设计的尺寸，多个尺寸就定义多个
 
@@ -141,25 +136,23 @@
 		```java
         UniversalLinearLayout.LayoutParams params = (UniversalLinearLayout.LayoutParams) codeView.getLayoutParams();
         UniversalLayoutInfo info = params.getUniversalLayoutInfo();
-        info.widthUniversal.value = 0.8f;
-        info.widthUniversal.basemode = UniversalLayoutInfo.BaseMode.PERCENT_WIDTH;
-        info.heightUniversal.value = 50;
+        info.width.value = 0.8f;
+        //SampleModel model = (SampleModel) info.width.model;
+        //model.setMode(BaseModel.modePercent).setObj(BaseModel.objScreen);
+        info.width.model = new SampleModel(BaseModel.modePercent, BaseModel.objScreen, true);
+        info.height.value = 50;
         codeView.requestLayout();
 		```
 
 	- 普通布局
 		```java
-        UniversalLayoutInfo info2 = new UniversalLayoutInfo();
-        info2.widthDesign = 640;
-        info2.heightDesign = 1136;
-        info2.widthUniversal = new UniversalLayoutInfo.UniversalVal(320, UniversalLayoutInfo.BaseMode.AUTO_WIDTH);
-        info2.heightUniversal = new UniversalLayoutInfo.UniversalVal(100, UniversalLayoutInfo.BaseMode.AUTO_WIDTH);
-        codeView2.getLayoutParams().width = info2.getUniversalSize(info2, info2.widthUniversal);
-        codeView2.getLayoutParams().height = info2.getUniversalSize(info2, info2.heightUniversal);
+        UniversalValue universalValue = new UniversalValue(300, new SampleModel().getDefaultDesign());
+        codeView2.getLayoutParams().width = (int) UniversalDimens.getUniversalDimens(universalValue, UniversalLayoutHelper.getDisplay());
+        codeView2.getLayoutParams().height = (int) UniversalDimens.getUniversalDimens(universalValue, UniversalLayoutHelper.getDisplay());
         codeView2.requestLayout();
 		```
 
-## UniversalLayout 的使用之PercentLayout
+## UniversalLayout 的使用之百分比
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>

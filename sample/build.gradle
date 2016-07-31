@@ -24,10 +24,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.+'
     //compile 'com.android.support:percent:23.+'
-//    compile ('com.github.brady9308:sic-universal-layout:1.0.1'){
-//        force = true
-//        exclude module:'appcompat-v7'
-//        transitive = true
-//    }
+    //compile ('com.github.brady9308:universal-layout:1.1.0')
     compile project(':library')
 }

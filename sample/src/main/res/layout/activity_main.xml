@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<silicar.tutu.universal.UniversalLinearLayout
+<silicar.tutu.universal.widget.UniversalLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     app:childStyle="@style/Design320x568">
 
-    <silicar.tutu.universal.UniversalLinearLayout
+    <silicar.tutu.universal.widget.UniversalLinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -32,17 +32,11 @@
 
         <Button
             android:id="@+id/percent_parent"
-            android:text="Percent Parent Sample \n Width 50%w Height 20%h"
+            android:text="Percent Sample \n Width 50%p Height 20%p"
             style="@style/LayoutZeroZero"
-            app:layout_widthExt="50%"
-            app:layout_heightExt="20%"/>
-
-        <Button
-            android:id="@+id/percent_screen"
-            android:text="Percent Screen Sample \n Width 50%sw Height 20%sh"
-            style="@style/LayoutZeroZero"
-            app:layout_widthExt="50%s"
-            app:layout_heightExt="20%s"/>
+            app:textSizeExt="5%p"
+            app:layout_widthExt="50%p"
+            app:layout_heightExt="30%p"/>
 
         <Button
             android:id="@+id/code_set"
@@ -55,6 +49,6 @@
             android:id="@+id/code_set_2"
             android:text="Code Set 2"
             style="@style/LayoutWrapWrap"/>
-    </silicar.tutu.universal.UniversalLinearLayout>
+    </silicar.tutu.universal.widget.UniversalLinearLayout>
 
-</silicar.tutu.universal.UniversalLinearLayout>
+</silicar.tutu.universal.widget.UniversalLinearLayout>
