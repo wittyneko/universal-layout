@@ -5,6 +5,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <TextView
+        style="@style/LayoutWrapWrap"
+        android:textColor="@android:color/white"
+        app:layout_marginTopExt="1%"
+        android:background="#666"
+        android:text="Display TextSize 5% Width 100% Height wrap"
+        app:textSizeExt="5%"
+        app:layout_widthExt="100%"/>
     
     <silicar.tutu.universal.widget.UniversalLinearLayout
         android:orientation="vertical"
@@ -22,15 +31,6 @@
             android:text="Parent TextSize 5% Width 100% Height wrap"
             app:textSizeExt="5%p"
             app:layout_widthExt="100%p"/>
-
-        <TextView
-            style="@style/LayoutWrapWrap"
-            android:textColor="@android:color/white"
-            app:layout_marginTopExt="1%"
-            android:background="#666"
-            android:text="Display TextSize 5% Width 100% Height wrap"
-            app:textSizeExt="5%"
-            app:layout_widthExt="100%"/>
 
         <TextView
             style="@style/LayoutWrapWrap"

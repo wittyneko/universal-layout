@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<silicar.tutu.universal.widget.UniversalLinearLayout
+    android:orientation="vertical"
+    android:gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <silicar.tutu.universal.widget.UniversalLinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="#ccc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_marginExt="5%">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@mipmap/temp"
+            app:layout_widthExt="50%ph"
+            app:layout_heightExt="30%ph"/>
+    </silicar.tutu.universal.widget.UniversalLinearLayout>
+
+</silicar.tutu.universal.widget.UniversalLinearLayout>
