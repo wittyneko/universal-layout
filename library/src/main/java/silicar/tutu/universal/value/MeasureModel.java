@@ -1,12 +1,10 @@
-package silicar.tutu.universal.helper.base;
-
-import silicar.tutu.universal.helper.UniversalLayoutHelper;
+package silicar.tutu.universal.value;
 
 /**
  * 获取参数样本
  * Created by Brady on 2016/5/4.
  */
-public class SampleModel implements BaseModel{
+public class MeasureModel implements IMeasureModel {
 
     protected int obj;
     protected int mode;
@@ -16,18 +14,18 @@ public class SampleModel implements BaseModel{
     protected float designWidth = 0f;
     protected float designHeight = 0f;
 
-    public SampleModel(int mode, int object, boolean isWidth) {
+    public MeasureModel(int mode, int object, boolean isWidth) {
         this.mode = mode;
         this.obj = object;
         this.isWidth = isWidth;
     }
-    public SampleModel(){
-        this(modeAuto,objScreen, true);
+    public MeasureModel(){
+        this(modeAuto, refScreen, true);
     }
 
     @Override
 
-    public int getObject() {
+    public int getReferObject() {
         return obj;
     }
 
@@ -43,13 +41,13 @@ public class SampleModel implements BaseModel{
 
     @Override
     public float getBaseValue() {
-        if (mode == BaseModel.modeAuto){
+        if (mode == IMeasureModel.modeAuto){
             if (isWidth){
                 return baseWidth / designWidth;
             }else {
                 return baseHeight / designHeight;
             }
-        } else if (mode == BaseModel.modePercent){
+        } else if (mode == IMeasureModel.modePercent){
             if (isWidth){
                 return baseWidth;
             }else {
@@ -77,44 +75,44 @@ public class SampleModel implements BaseModel{
         return designHeight;
     }
 
-    public SampleModel setObj(int obj) {
+    public MeasureModel setRefObject(int obj) {
         this.obj = obj;
         return this;
     }
 
-    public SampleModel setMode(int mode) {
+    public MeasureModel setMode(int mode) {
         this.mode = mode;
         return this;
     }
 
-    public SampleModel defWidth(boolean isWidth) {
+    public MeasureModel defWidth(boolean isWidth) {
         this.isWidth = isWidth;
         return this;
     }
 
-    public SampleModel setBaseWidth(float baseWidth) {
+    public MeasureModel setBaseWidth(float baseWidth) {
         this.baseWidth = baseWidth;
         return this;
     }
 
-    public SampleModel setBaseHeight(float baseHeight) {
+    public MeasureModel setBaseHeight(float baseHeight) {
         this.baseHeight = baseHeight;
         return this;
     }
 
-    public SampleModel setDesignWidth(float designWidth) {
+    public MeasureModel setDesignWidth(float designWidth) {
         this.designWidth = designWidth;
         return this;
     }
 
-    public SampleModel setDesignHeight(float designHeight) {
+    public MeasureModel setDesignHeight(float designHeight) {
         this.designHeight = designHeight;
         return this;
     }
 
-    public SampleModel getDefaultDesign(){
-        designWidth = BaseDisplay.getInstance().getDisplayWidth();
-        designHeight = BaseDisplay.getInstance().getDisplayHeight();
+    public MeasureModel getDefaultDesign(){
+        designWidth = ReferDisplay.getInstance().getDisplayWidth();
+        designHeight = ReferDisplay.getInstance().getDisplayHeight();
         return this;
     }
 }

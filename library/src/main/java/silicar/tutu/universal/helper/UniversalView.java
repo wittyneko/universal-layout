@@ -2,16 +2,16 @@ package silicar.tutu.universal.helper;
 
 import android.support.annotation.StyleRes;
 
-import silicar.tutu.universal.helper.base.BaseDisplay;
+import silicar.tutu.universal.value.ReferDisplay;
 
 /**
  * Created by wittytutu on 17-3-1.
  */
 
 public interface UniversalView {
-    BaseDisplay getAutoDisplay();
+    ReferDisplay getAutoDisplay();
 
-    void setAutoDisplay(BaseDisplay display);
+    void setAutoDisplay(ReferDisplay display);
 
     int getAutoChildStyle();
 

@@ -12,7 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import silicar.tutu.universal.helper.*;
-import silicar.tutu.universal.helper.base.BaseDisplay;
+import silicar.tutu.universal.value.ReferDisplay;
+import silicar.tutu.universal.value.UniversalLayoutInfo;
 
 /**
  * Created by tutu on 2016/2/24.
@@ -101,12 +102,12 @@ public class UniversalLinearLayout extends LinearLayout implements UniversalView
     }
 
     @Override
-    public BaseDisplay getAutoDisplay() {
+    public ReferDisplay getAutoDisplay() {
         return mHelper.getAutoDisplay();
     }
 
     @Override
-    public void setAutoDisplay(BaseDisplay display) {
+    public void setAutoDisplay(ReferDisplay display) {
         mHelper.setAutoDisplay(display);
     }
 
@@ -127,10 +128,10 @@ public class UniversalLinearLayout extends LinearLayout implements UniversalView
         private UniversalLayoutInfo mUniversalLayoutInfo;
 
         public LayoutParams(Context c, AttributeSet attrs) {
-            this(c, attrs, BaseDisplay.getInstance(), 0);
+            this(c, attrs, ReferDisplay.getInstance(), 0);
         }
 
-        public LayoutParams(Context c, AttributeSet attrs, BaseDisplay display, int style) {
+        public LayoutParams(Context c, AttributeSet attrs, ReferDisplay display, int style) {
             super(c, attrs);
             mUniversalLayoutInfo = UniversalLayoutHelper.getUniversalLayoutInfo(c, attrs, display, style);
         }

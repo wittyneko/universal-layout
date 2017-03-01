@@ -24,7 +24,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import silicar.tutu.universal.helper.*;
-import silicar.tutu.universal.helper.base.BaseDisplay;
+import silicar.tutu.universal.value.ReferDisplay;
+import silicar.tutu.universal.value.UniversalLayoutInfo;
 
 /**
  * Subclass of {@link FrameLayout} that supports percentage based dimensions and
@@ -110,12 +111,12 @@ public class UniversalFrameLayout extends FrameLayout implements UniversalView  
     }
 
     @Override
-    public BaseDisplay getAutoDisplay() {
+    public ReferDisplay getAutoDisplay() {
         return mHelper.getAutoDisplay();
     }
 
     @Override
-    public void setAutoDisplay(BaseDisplay display) {
+    public void setAutoDisplay(ReferDisplay display) {
         mHelper.setAutoDisplay(display);
     }
 
@@ -149,10 +150,10 @@ public class UniversalFrameLayout extends FrameLayout implements UniversalView  
         private UniversalLayoutInfo mUniversalLayoutInfo;
 
         public LayoutParams(Context c, AttributeSet attrs) {
-            this(c, attrs, BaseDisplay.getInstance(), 0);
+            this(c, attrs, ReferDisplay.getInstance(), 0);
         }
 
-        public LayoutParams(Context c, AttributeSet attrs, BaseDisplay display, int style) {
+        public LayoutParams(Context c, AttributeSet attrs, ReferDisplay display, int style) {
             super(c, attrs);
             mUniversalLayoutInfo = UniversalLayoutHelper.getUniversalLayoutInfo(c, attrs, display, style);
         }

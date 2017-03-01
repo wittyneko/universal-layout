@@ -1,6 +1,4 @@
-package silicar.tutu.universal.helper;
-
-import silicar.tutu.universal.helper.base.BaseModel;
+package silicar.tutu.universal.value;
 
 /**
  * 参数信息
@@ -8,12 +6,12 @@ import silicar.tutu.universal.helper.base.BaseModel;
  */
 public class UniversalValue {
     public float value;
-    public BaseModel model;
+    public IMeasureModel model;
 
     public UniversalValue() {
     }
 
-    public UniversalValue(float value, BaseModel model) {
+    public UniversalValue(float value, IMeasureModel model) {
         this.value = value;
         this.model = model;
     }

@@ -16,12 +16,11 @@ import android.view.View;
 import android.view.WindowManager;
 
 import silicar.tutu.universal.helper.UniversalDimens;
-import silicar.tutu.universal.helper.UniversalLayoutHelper;
-import silicar.tutu.universal.helper.UniversalLayoutInfo;
-import silicar.tutu.universal.helper.UniversalValue;
-import silicar.tutu.universal.helper.base.BaseDisplay;
-import silicar.tutu.universal.helper.base.BaseModel;
-import silicar.tutu.universal.helper.base.SampleModel;
+import silicar.tutu.universal.value.MeasureModel;
+import silicar.tutu.universal.value.UniversalLayoutInfo;
+import silicar.tutu.universal.value.UniversalValue;
+import silicar.tutu.universal.value.IMeasureModel;
+import silicar.tutu.universal.value.ReferDisplay;
 import silicar.tutu.universal.widget.UniversalLinearLayout;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -59,16 +58,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 UniversalLinearLayout.LayoutParams params = (UniversalLinearLayout.LayoutParams) codeView.getLayoutParams();
                 UniversalLayoutInfo info = params.getUniversalLayoutInfo();
                 info.width.value = 0.8f;
-                //SampleModel model = (SampleModel) info.width.model;
-                //model.setMode(BaseModel.modePercent).setObj(BaseModel.objScreen);
-                info.width.model = new SampleModel(BaseModel.modePercent, BaseModel.objScreen, true);
+                //MeasureModel model = (MeasureModel) info.width.model;
+                //model.setMode(IMeasureModel.modePercent).setRefObject(IMeasureModel.refScreen);
+                info.width.model = new MeasureModel(IMeasureModel.modePercent, IMeasureModel.refScreen, true);
                 info.height.value = 50;
                 codeView.requestLayout();
                 break;
             case R.id.code_set_2:
-                UniversalValue universalValue = new UniversalValue(300, new SampleModel().getDefaultDesign());
-                codeView2.getLayoutParams().width = (int) UniversalDimens.getUniversalDimens(universalValue, BaseDisplay.getInstance());
-                codeView2.getLayoutParams().height = (int) UniversalDimens.getUniversalDimens(universalValue, BaseDisplay.getInstance());
+                UniversalValue universalValue = new UniversalValue(300, new MeasureModel().getDefaultDesign());
+                codeView2.getLayoutParams().width = (int) UniversalDimens.getUniversalDimens(universalValue, ReferDisplay.getInstance());
+                codeView2.getLayoutParams().height = (int) UniversalDimens.getUniversalDimens(universalValue, ReferDisplay.getInstance());
                 codeView2.requestLayout();
                 break;
             default:

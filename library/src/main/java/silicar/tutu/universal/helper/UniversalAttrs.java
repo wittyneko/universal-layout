@@ -10,9 +10,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import silicar.tutu.universal.R;
-import silicar.tutu.universal.helper.base.BaseDisplay;
-import silicar.tutu.universal.helper.base.BaseModel;
-import silicar.tutu.universal.helper.base.SampleModel;
+import silicar.tutu.universal.value.IMeasureModel;
+import silicar.tutu.universal.value.MeasureModel;
+import silicar.tutu.universal.value.ReferDisplay;
+import silicar.tutu.universal.value.UniversalLayoutInfo;
+import silicar.tutu.universal.value.UniversalValue;
 
 /**
  * 参数读取解析
@@ -25,21 +27,21 @@ public class UniversalAttrs {
     //private static final String REGEX_BASE = "([%a]?[spo]?[wh]?)$";
     private Context mContext;
     private TypedArray mTypedArray;
-    private BaseDisplay mDisplay;
+    private ReferDisplay mDisplay;
 
-    public UniversalAttrs(Context context, BaseDisplay display) {
+    public UniversalAttrs(Context context, ReferDisplay display) {
         mContext = context;
         mDisplay = display;
     }
 
-    public UniversalAttrs(Context context, BaseDisplay display, @StyleRes int resId) {
+    public UniversalAttrs(Context context, ReferDisplay display, @StyleRes int resId) {
         mContext = context;
         mDisplay = display;
         //mTypedArray = context.obtainStyledAttributes(resId, R.styleable.UniversalLayoutInfo);
         obtainStyledAttributes(resId);
     }
 
-    public UniversalAttrs(Context context, BaseDisplay display, AttributeSet set,// @StyleableRes int[] attrs,
+    public UniversalAttrs(Context context, ReferDisplay display, AttributeSet set,// @StyleableRes int[] attrs,
                           @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
         mContext = context;
         mDisplay = display;
@@ -223,37 +225,37 @@ public class UniversalAttrs {
         String baseIsWidthStr = matcher.group(10);
 
         UniversalValue universalVal = new UniversalValue();
-        SampleModel sampleModel = new SampleModel();
+        MeasureModel measureModel = new MeasureModel();
         float value = Float.parseFloat(valueStr);
 
         // 计算模式
-        if (baseModeStr == null || baseModeStr.equals(BaseModel.MODE_AUTO)) {
-            sampleModel.setMode(BaseModel.modeAuto);
+        if (baseModeStr == null || baseModeStr.equals(IMeasureModel.MODE_AUTO)) {
+            measureModel.setMode(IMeasureModel.modeAuto);
         } else {
-            sampleModel.setMode(BaseModel.modePercent);
+            measureModel.setMode(IMeasureModel.modePercent);
             value /= 100f;
         }
 
         // 参照对象
-        if (baseObjStr == null || baseObjStr.equals(BaseModel.OBJ_SCREEN)) {
-            sampleModel.setObj(BaseModel.objScreen);
-        } else if (baseObjStr.equals(BaseModel.OBJ_PARENT)) {
-            sampleModel.setObj(BaseModel.objParent);
+        if (baseObjStr == null || baseObjStr.equals(IMeasureModel.REF_SCREEN)) {
+            measureModel.setRefObject(IMeasureModel.refScreen);
+        } else if (baseObjStr.equals(IMeasureModel.REF_PARENT)) {
+            measureModel.setRefObject(IMeasureModel.refParent);
         } else {
-            sampleModel.setObj(BaseModel.objOwn);
+            measureModel.setRefObject(IMeasureModel.refOwn);
         }
 
         // 参照值
         if (baseIsWidthStr == null) {
-            sampleModel.defWidth(isWidth);
+            measureModel.defWidth(isWidth);
         } else {
-            if (baseIsWidthStr.equals(BaseModel.WIDTH))
-                sampleModel.defWidth(true);
+            if (baseIsWidthStr.equals(IMeasureModel.WIDTH))
+                measureModel.defWidth(true);
             else
-                sampleModel.defWidth(false);
+                measureModel.defWidth(false);
         }
         universalVal.value = value;
-        universalVal.model = sampleModel;
+        universalVal.model = measureModel;
 
         return universalVal;
     }

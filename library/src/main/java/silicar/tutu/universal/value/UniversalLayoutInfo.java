@@ -1,4 +1,4 @@
-package silicar.tutu.universal.helper;
+package silicar.tutu.universal.value;
 
 import android.view.ViewGroup;
 
@@ -36,7 +36,7 @@ public class UniversalLayoutInfo {
     public UniversalValue textSize;
 
     /* package */
-    ViewGroup.MarginLayoutParams mPreservedParams;
+    public ViewGroup.MarginLayoutParams mPreservedParams;
 
 
     public UniversalLayoutInfo()

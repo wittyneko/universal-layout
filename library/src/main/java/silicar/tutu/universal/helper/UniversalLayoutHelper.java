@@ -11,7 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import silicar.tutu.universal.R;
-import silicar.tutu.universal.helper.base.BaseDisplay;
+import silicar.tutu.universal.value.ReferDisplay;
+import silicar.tutu.universal.value.UniversalLayoutInfo;
 
 /**
  * Created by Brady on 2016/5/2.
@@ -21,7 +22,7 @@ public class UniversalLayoutHelper implements UniversalView {
 
     private ViewGroup mHost;
     private int mStyle;
-    private BaseDisplay mDisplay;
+    private ReferDisplay mDisplay;
     private UniversalLayoutMeasure universalLayoutMeasure;
 
     public UniversalLayoutHelper(ViewGroup host) {
@@ -35,7 +36,7 @@ public class UniversalLayoutHelper implements UniversalView {
      * Constructs a UniversalLayoutInfo from attributes associated with a View. Call this method from
      * {@code LayoutParams(Context c, AttributeSet attrs)} constructor.
      */
-    public static UniversalLayoutInfo getUniversalLayoutInfo(Context context, AttributeSet attrs, BaseDisplay display, int style) {
+    public static UniversalLayoutInfo getUniversalLayoutInfo(Context context, AttributeSet attrs, ReferDisplay display, int style) {
         //if (universalAttrs == null)
         //    universalAttrs = new UniversalAttrs(context, mDisplay);
         UniversalAttrs universalAttrs = new UniversalAttrs(context, display);
@@ -73,15 +74,15 @@ public class UniversalLayoutHelper implements UniversalView {
     }
 
     @Override
-    public BaseDisplay getAutoDisplay() {
+    public ReferDisplay getAutoDisplay() {
         if (mDisplay == null) {
-            return BaseDisplay.getInstance();
+            return ReferDisplay.getInstance();
         }
         return mDisplay;
     }
 
     @Override
-    public void setAutoDisplay(BaseDisplay display) {
+    public void setAutoDisplay(ReferDisplay display) {
         mDisplay = display;
     }
 
