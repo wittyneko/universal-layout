@@ -18,12 +18,13 @@ package silicar.tutu.universal.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.StyleRes;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import silicar.tutu.universal.R;
 import silicar.tutu.universal.helper.*;
+import silicar.tutu.universal.helper.base.BaseDisplay;
 
 /**
  * Subclass of {@link RelativeLayout} that supports percentage based dimensions and
@@ -77,9 +78,8 @@ import silicar.tutu.universal.helper.*;
  * This will make the aspect ratio 16:9 (1.78:1) with the width fixed at 300dp and height adjusted
  * accordingly.
  */
-public class UniversalRelativeLayout extends RelativeLayout {
+public class UniversalRelativeLayout extends RelativeLayout implements UniversalView  {
     private final UniversalLayoutHelper mHelper = new UniversalLayoutHelper(this);
-    private int mStyle;
 
     public UniversalRelativeLayout(Context context) {
         super(context);
@@ -96,9 +96,7 @@ public class UniversalRelativeLayout extends RelativeLayout {
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes){
-        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.UniversalLayout, defStyleAttr, defStyleRes);
-        mStyle = array.getResourceId(R.styleable.UniversalLayout_childStyle, 0);
-        array.recycle();
+        mHelper.init(context, attrs, defStyleAttr, defStyleRes);
     }
 
     @Override
@@ -108,15 +106,27 @@ public class UniversalRelativeLayout extends RelativeLayout {
 
     @Override
     public LayoutParams generateLayoutParams(AttributeSet attrs) {
-        return new LayoutParams(getContext(), attrs, mStyle);
+        return new LayoutParams(getContext(), attrs, getAutoDisplay(), getAutoChildStyle());
     }
 
-    public int getChildStyle(){
-        return mStyle;
+    @Override
+    public BaseDisplay getAutoDisplay() {
+        return mHelper.getAutoDisplay();
     }
 
-    public void setChildStyle(int style){
-        mStyle = style;
+    @Override
+    public void setAutoDisplay(BaseDisplay display) {
+        mHelper.setAutoDisplay(display);
+    }
+
+    @Override
+    public int getAutoChildStyle() {
+        return mHelper.getAutoChildStyle();
+    }
+
+    @Override
+    public void setAutoChildStyle(@StyleRes int style) {
+        mHelper.setAutoChildStyle(style);
     }
 
     @Override
@@ -139,12 +149,12 @@ public class UniversalRelativeLayout extends RelativeLayout {
         private UniversalLayoutInfo mUniversalLayoutInfo;
 
         public LayoutParams(Context c, AttributeSet attrs) {
-            this(c, attrs, 0);
+            this(c, attrs, BaseDisplay.getInstance(), 0);
         }
 
-        public LayoutParams(Context c, AttributeSet attrs, int style) {
+        public LayoutParams(Context c, AttributeSet attrs, BaseDisplay display, int style) {
             super(c, attrs);
-            mUniversalLayoutInfo = UniversalLayoutHelper.getUniversalLayoutInfo(c, attrs, style);
+            mUniversalLayoutInfo = UniversalLayoutHelper.getUniversalLayoutInfo(c, attrs, display, style);
         }
 
         public LayoutParams(int width, int height) {

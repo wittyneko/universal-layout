@@ -4,22 +4,22 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
+import android.support.annotation.StyleRes;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
-import silicar.tutu.universal.R;
 import silicar.tutu.universal.helper.*;
+import silicar.tutu.universal.helper.base.BaseDisplay;
 
 /**
  * Created by tutu on 2016/2/24.
  */
-public class UniversalLinearLayout extends LinearLayout {
+public class UniversalLinearLayout extends LinearLayout implements UniversalView {
 
     private final UniversalLayoutHelper mHelper = new UniversalLayoutHelper(this);
-    private int mStyle;
 
     public UniversalLinearLayout(Context context) {
         super(context);
@@ -43,9 +43,7 @@ public class UniversalLinearLayout extends LinearLayout {
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes){
-        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.UniversalLayout, defStyleAttr, defStyleRes);
-        mStyle = array.getResourceId(R.styleable.UniversalLayout_childStyle, 0);
-        array.recycle();
+        mHelper.init(context, attrs, defStyleAttr, defStyleRes);
     }
 
     @Override
@@ -61,15 +59,7 @@ public class UniversalLinearLayout extends LinearLayout {
     @Override
     public LayoutParams generateLayoutParams(AttributeSet attrs)
     {
-        return new LayoutParams(getContext(), attrs, mStyle);
-    }
-
-    public int getChildStyle(){
-        return mStyle;
-    }
-
-    public void setChildStyle(int style){
-        mStyle = style;
+        return new LayoutParams(getContext(), attrs, getAutoDisplay(), getAutoChildStyle());
     }
 
     @Override
@@ -86,12 +76,12 @@ public class UniversalLinearLayout extends LinearLayout {
         //fixed scrollview height problems
         if (heightMode == MeasureSpec.UNSPECIFIED && getParent() != null && (getParent() instanceof ScrollView))
         {
-            int baseHeight = mHelper.getDisplay().getDisplayHeight();
+            int baseHeight = mHelper.getAutoDisplay().getDisplayHeight();
             tmpHeightMeasureSpec = MeasureSpec.makeMeasureSpec(baseHeight, heightMode);
         }
         if (heightMode == MeasureSpec.UNSPECIFIED && getParent() != null && (getParent() instanceof HorizontalScrollView))
         {
-            int baseWidth = mHelper.getDisplay().getDisplayWidth();
+            int baseWidth = mHelper.getAutoDisplay().getDisplayWidth();
             tmpWidthMeasureSpec = MeasureSpec.makeMeasureSpec(baseWidth, widthMode);
         }
 
@@ -110,6 +100,26 @@ public class UniversalLinearLayout extends LinearLayout {
         mHelper.restoreOriginalParams();
     }
 
+    @Override
+    public BaseDisplay getAutoDisplay() {
+        return mHelper.getAutoDisplay();
+    }
+
+    @Override
+    public void setAutoDisplay(BaseDisplay display) {
+        mHelper.setAutoDisplay(display);
+    }
+
+    @Override
+    public int getAutoChildStyle() {
+        return mHelper.getAutoChildStyle();
+    }
+
+    @Override
+    public void setAutoChildStyle(@StyleRes int style) {
+        mHelper.setAutoChildStyle(style);
+    }
+
 
     public static class LayoutParams extends LinearLayout.LayoutParams
             implements UniversalLayoutParams
@@ -117,12 +127,12 @@ public class UniversalLinearLayout extends LinearLayout {
         private UniversalLayoutInfo mUniversalLayoutInfo;
 
         public LayoutParams(Context c, AttributeSet attrs) {
-            this(c, attrs, 0);
+            this(c, attrs, BaseDisplay.getInstance(), 0);
         }
 
-        public LayoutParams(Context c, AttributeSet attrs, int style) {
+        public LayoutParams(Context c, AttributeSet attrs, BaseDisplay display, int style) {
             super(c, attrs);
-            mUniversalLayoutInfo = UniversalLayoutHelper.getUniversalLayoutInfo(c, attrs, style);
+            mUniversalLayoutInfo = UniversalLayoutHelper.getUniversalLayoutInfo(c, attrs, display, style);
         }
 
         public LayoutParams(int width, int height) {

@@ -2,6 +2,7 @@ package silicar.tutu.universal.helper;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.StyleRes;
 import android.support.v4.view.MarginLayoutParamsCompat;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
@@ -9,50 +10,35 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import silicar.tutu.universal.R;
 import silicar.tutu.universal.helper.base.BaseDisplay;
 
 /**
  * Created by Brady on 2016/5/2.
  */
-public class UniversalLayoutHelper {
+public class UniversalLayoutHelper implements UniversalView {
     private static final String TAG = "UniversalLayout";
 
-    //private Context mContext;
     private ViewGroup mHost;
-    private static BaseDisplay mDisplay;
-    private static UniversalAttrs universalAttrs;
+    private int mStyle;
+    private BaseDisplay mDisplay;
     private UniversalLayoutMeasure universalLayoutMeasure;
 
     public UniversalLayoutHelper(ViewGroup host) {
         mHost = host;
-        mDisplay = BaseDisplay.getInstance(mHost.getContext());
-        universalLayoutMeasure = new UniversalLayoutMeasure(mHost, mDisplay);
+        universalLayoutMeasure = new UniversalLayoutMeasure(mHost);
     }
 
-    //public UniversalLayoutHelper(Context mContext, ViewGroup mHost) {
-    //    this.mContext = mContext;
-    //    this.mHost = mHost;
-    //    displayBase = BaseDisplay.getInstance(mContext);
-    //}
-
-    public static BaseDisplay getDisplay() {
-        return mDisplay;
-    }
-
-    ///////// 参数获取解析 ///////////
+    ///////// 子控件参数获取解析 ///////////
 
     /**
      * Constructs a UniversalLayoutInfo from attributes associated with a View. Call this method from
      * {@code LayoutParams(Context c, AttributeSet attrs)} constructor.
      */
-    public static UniversalLayoutInfo getUniversalLayoutInfo(Context context, AttributeSet attrs){
-        return getUniversalLayoutInfo(context, attrs, 0);
-    }
-
-    public static UniversalLayoutInfo getUniversalLayoutInfo(Context context, AttributeSet attrs, int style){
+    public static UniversalLayoutInfo getUniversalLayoutInfo(Context context, AttributeSet attrs, BaseDisplay display, int style) {
         //if (universalAttrs == null)
         //    universalAttrs = new UniversalAttrs(context, mDisplay);
-        UniversalAttrs universalAttrs = new UniversalAttrs(context, mDisplay);
+        UniversalAttrs universalAttrs = new UniversalAttrs(context, display);
         universalAttrs.obtainStyledAttributes(attrs, 0, style);
         return universalAttrs.getUniversalLayoutInfo();
     }
@@ -68,6 +54,37 @@ public class UniversalLayoutHelper {
         params.height = array.getLayoutDimension(heightAttr, 0);
     }
 
+    ///////// child样式参数获取解析 ///////////
+
+    public void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.UniversalLayout, defStyleAttr, defStyleRes);
+        mStyle = array.getResourceId(R.styleable.UniversalLayout_childStyle, 0);
+        array.recycle();
+    }
+
+    @Override
+    public int getAutoChildStyle() {
+        return mStyle;
+    }
+
+    @Override
+    public void setAutoChildStyle(@StyleRes int style) {
+        mStyle = style;
+    }
+
+    @Override
+    public BaseDisplay getAutoDisplay() {
+        if (mDisplay == null) {
+            return BaseDisplay.getInstance();
+        }
+        return mDisplay;
+    }
+
+    @Override
+    public void setAutoDisplay(BaseDisplay display) {
+        mDisplay = display;
+    }
+
     ///////// 测量计算 ///////////
 
     /**
@@ -77,9 +94,8 @@ public class UniversalLayoutHelper {
      * @param widthMeasureSpec  Width MeasureSpec of the parent ViewGroup.
      * @param heightMeasureSpec Height MeasureSpec of the parent ViewGroup.
      */
-    public void adjustChildren(int widthMeasureSpec, int heightMeasureSpec){
-        if (Log.isLoggable(TAG, Log.DEBUG))
-        {
+    public void adjustChildren(int widthMeasureSpec, int heightMeasureSpec) {
+        if (Log.isLoggable(TAG, Log.DEBUG)) {
             Log.d(TAG, "fillLayout: " + mHost + " widthMeasureSpec: "
                     + View.MeasureSpec.toString(widthMeasureSpec) + " heightMeasureSpec: "
                     + View.MeasureSpec.toString(heightMeasureSpec));
@@ -90,26 +106,21 @@ public class UniversalLayoutHelper {
         if (Log.isLoggable(TAG, Log.DEBUG))
             Log.d(TAG, "widthHint = " + widthHint + " , heightHint = " + heightHint);
 
-        for (int i = 0, N = mHost.getChildCount(); i < N; i++)
-        {
+        for (int i = 0, N = mHost.getChildCount(); i < N; i++) {
             View view = mHost.getChildAt(i);
             ViewGroup.LayoutParams params = view.getLayoutParams();
 
-            if (Log.isLoggable(TAG, Log.DEBUG))
-            {
+            if (Log.isLoggable(TAG, Log.DEBUG)) {
                 Log.d(TAG, "should adjust " + view + " " + params);
             }
 
-            if (params instanceof UniversalLayoutParams)
-            {
+            if (params instanceof UniversalLayoutParams) {
                 UniversalLayoutInfo info =
                         ((UniversalLayoutParams) params).getUniversalLayoutInfo();
-                if (Log.isLoggable(TAG, Log.DEBUG))
-                {
+                if (Log.isLoggable(TAG, Log.DEBUG)) {
                     Log.d(TAG, "using " + info);
                 }
-                if (info != null)
-                {
+                if (info != null) {
                     universalLayoutMeasure.fillLayout(widthHint, heightHint, view);
                 }
             }
@@ -132,59 +143,47 @@ public class UniversalLayoutHelper {
      * @return True if the measure phase needs to be rerun because one of the children would like
      * to receive more space.
      */
-    public boolean handleMeasuredStateTooSmall()
-    {
+    public boolean handleMeasuredStateTooSmall() {
         boolean needsSecondMeasure = false;
-        for (int i = 0, N = mHost.getChildCount(); i < N; i++)
-        {
+        for (int i = 0, N = mHost.getChildCount(); i < N; i++) {
             View view = mHost.getChildAt(i);
             ViewGroup.LayoutParams params = view.getLayoutParams();
-            if (Log.isLoggable(TAG, Log.DEBUG))
-            {
+            if (Log.isLoggable(TAG, Log.DEBUG)) {
                 Log.d(TAG, "should handle measured state too small " + view + " " + params);
             }
-            if (params instanceof UniversalLayoutParams)
-            {
+            if (params instanceof UniversalLayoutParams) {
                 UniversalLayoutInfo info =
                         ((UniversalLayoutParams) params).getUniversalLayoutInfo();
-                if (info != null)
-                {
-                    if (shouldHandleMeasuredWidthTooSmall(view, info))
-                    {
+                if (info != null) {
+                    if (shouldHandleMeasuredWidthTooSmall(view, info)) {
                         needsSecondMeasure = true;
                         params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
                     }
-                    if (shouldHandleMeasuredHeightTooSmall(view, info))
-                    {
+                    if (shouldHandleMeasuredHeightTooSmall(view, info)) {
                         needsSecondMeasure = true;
                         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                     }
                 }
             }
         }
-        if (Log.isLoggable(TAG, Log.DEBUG))
-        {
+        if (Log.isLoggable(TAG, Log.DEBUG)) {
             Log.d(TAG, "should trigger second measure pass: " + needsSecondMeasure);
         }
         return needsSecondMeasure;
     }
 
-    private static boolean shouldHandleMeasuredWidthTooSmall(View view, UniversalLayoutInfo info)
-    {
+    private static boolean shouldHandleMeasuredWidthTooSmall(View view, UniversalLayoutInfo info) {
         int state = ViewCompat.getMeasuredWidthAndState(view) & ViewCompat.MEASURED_STATE_MASK;
-        if (info == null || info.width == null)
-        {
+        if (info == null || info.width == null) {
             return false;
         }
         return state == ViewCompat.MEASURED_STATE_TOO_SMALL && info.width.getMeasureValue() >= 0 &&
                 info.mPreservedParams.width == ViewGroup.LayoutParams.WRAP_CONTENT;
     }
 
-    private static boolean shouldHandleMeasuredHeightTooSmall(View view, UniversalLayoutInfo info)
-    {
+    private static boolean shouldHandleMeasuredHeightTooSmall(View view, UniversalLayoutInfo info) {
         int state = ViewCompat.getMeasuredHeightAndState(view) & ViewCompat.MEASURED_STATE_MASK;
-        if (info == null || info.height == null)
-        {
+        if (info == null || info.height == null) {
             return false;
         }
         return state == ViewCompat.MEASURED_STATE_TOO_SMALL && info.height.getMeasureValue() >= 0 &&
@@ -198,31 +197,23 @@ public class UniversalLayoutHelper {
      * percentage values. Calling this method only makes sense if you previously called
      * {@link UniversalLayoutHelper#adjustChildren(int, int)}.
      */
-    public void restoreOriginalParams()
-    {
-        for (int i = 0, N = mHost.getChildCount(); i < N; i++)
-        {
+    public void restoreOriginalParams() {
+        for (int i = 0, N = mHost.getChildCount(); i < N; i++) {
             View view = mHost.getChildAt(i);
             ViewGroup.LayoutParams params = view.getLayoutParams();
-            if (Log.isLoggable(TAG, Log.DEBUG))
-            {
+            if (Log.isLoggable(TAG, Log.DEBUG)) {
                 Log.d(TAG, "should restore " + view + " " + params);
             }
-            if (params instanceof UniversalLayoutParams)
-            {
+            if (params instanceof UniversalLayoutParams) {
                 UniversalLayoutInfo info =
                         ((UniversalLayoutParams) params).getUniversalLayoutInfo();
-                if (Log.isLoggable(TAG, Log.DEBUG))
-                {
+                if (Log.isLoggable(TAG, Log.DEBUG)) {
                     Log.d(TAG, "using " + info);
                 }
-                if (info != null)
-                {
-                    if (params instanceof ViewGroup.MarginLayoutParams)
-                    {
+                if (info != null) {
+                    if (params instanceof ViewGroup.MarginLayoutParams) {
                         restoreMarginLayoutParams((ViewGroup.MarginLayoutParams) params, info);
-                    } else
-                    {
+                    } else {
                         restoreLayoutParams(params, info);
                     }
                 }
@@ -235,8 +226,7 @@ public class UniversalLayoutHelper {
      * values. Calling this method only makes sense if you previously called
      * {@link UniversalLayoutMeasure#fillLayout}.
      */
-    public void restoreMarginLayoutParams(ViewGroup.MarginLayoutParams params, UniversalLayoutInfo info)
-    {
+    public void restoreMarginLayoutParams(ViewGroup.MarginLayoutParams params, UniversalLayoutInfo info) {
         restoreLayoutParams(params, info);
         params.leftMargin = info.mPreservedParams.leftMargin;
         params.topMargin = info.mPreservedParams.topMargin;
@@ -253,8 +243,7 @@ public class UniversalLayoutHelper {
      * this method only makes sense if you previously called
      * {@link UniversalLayoutMeasure#fillLayout}.
      */
-    public void restoreLayoutParams(ViewGroup.LayoutParams params, UniversalLayoutInfo info)
-    {
+    public void restoreLayoutParams(ViewGroup.LayoutParams params, UniversalLayoutInfo info) {
         params.width = info.mPreservedParams.width;
         params.height = info.mPreservedParams.height;
     }

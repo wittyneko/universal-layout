@@ -17,11 +17,9 @@ import silicar.tutu.universal.helper.base.SampleModel;
 public class UniversalLayoutMeasure {
 
     private ViewGroup mHost;
-    private BaseDisplay mDisplay;
 
-    public UniversalLayoutMeasure(ViewGroup host, BaseDisplay display) {
+    public UniversalLayoutMeasure(ViewGroup host) {
         mHost = host;
-        mDisplay = display;
     }
 
     public void fillLayout(int widthHint, int heightHint, View view) {
@@ -169,11 +167,11 @@ public class UniversalLayoutMeasure {
         if (model.getDesignHeight() == 0f)
             model.setDesignHeight(info.heightDesign);
         if (model.getMode() == BaseModel.modeAuto) {
-            return UniversalDimens.getUniversalDimens(universalValue, mDisplay);
+            return UniversalDimens.getUniversalDimens(universalValue, getDisplay());
         } else if (model.getMode() == BaseModel.modePercent) {
             switch (model.getObject()) {
                 case BaseModel.objScreen:
-                    return UniversalDimens.getUniversalDimens(universalValue, mDisplay);
+                    return UniversalDimens.getUniversalDimens(universalValue, getDisplay());
                 case BaseModel.objParent:
                     return UniversalDimens.getUniversalDimens(universalValue, widthHint, heightHint);
                 case BaseModel.objOwn:
@@ -181,5 +179,13 @@ public class UniversalLayoutMeasure {
             }
         }
         return 0;
+    }
+
+    public BaseDisplay getDisplay() {
+        if (mHost instanceof UniversalView){
+            UniversalView view = (UniversalView) mHost;
+            return view.getAutoDisplay();
+        }
+        return BaseDisplay.getInstance();
     }
 }

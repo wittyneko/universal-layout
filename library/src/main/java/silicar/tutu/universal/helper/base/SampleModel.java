@@ -113,8 +113,8 @@ public class SampleModel implements BaseModel{
     }
 
     public SampleModel getDefaultDesign(){
-        designWidth = UniversalLayoutHelper.getDisplay().getDisplayWidth();
-        designHeight = UniversalLayoutHelper.getDisplay().getDisplayHeight();
+        designWidth = BaseDisplay.getInstance().getDisplayWidth();
+        designHeight = BaseDisplay.getInstance().getDisplayHeight();
         return this;
     }
 }
